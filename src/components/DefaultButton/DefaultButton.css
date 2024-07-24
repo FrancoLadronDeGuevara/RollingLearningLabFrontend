@@ -1,0 +1,43 @@
+.default-button {
+    padding: 13px;
+    background-color: transparent;
+    border-radius: 30px;
+    border: 1px solid #414141;
+    font-size: 13px;
+    font-weight: 500;
+    color: #414141;
+    cursor: pointer;
+    transition: all ease-in-out .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+  }
+  
+  .default-button:hover {
+    background-color: #D81D26;
+    color: #fff;
+    border-color: #D81D26;
+  }
+  
+  .default-button-reverse {
+    padding: 13px;
+    background-color: #D81D26;
+    border-radius: 30px;
+    border: 1px solid #D81D26;
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    cursor: pointer;
+    transition: all ease-in-out .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+  }
+  
+  .default-button-reverse:hover {
+    background-color: transparent;
+    color: #414141;
+    border-color: #414141;
+  }
