@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import Visibility from "@mui/icons-material/Visibility";
@@ -23,38 +23,50 @@ import ValidatedTextField from "../ValidatedTextField/ValidatedTextField";
 import PopoverCookies from "./PopoverCookies/PopoverCookies";
 import Loader from "../Loader/Loader";
 import { emailRegex, passwordRegex } from "../../helpers/regularExpressions";
+import useAlert from "../../hooks/useAlert";
+import PopupAlert from "../PopupAlert/PopupAlert";
 
 const confIcon = {
   position: "absolute",
   right: 10,
   top: 15,
   cursor: "pointer",
+  color: "#5FA3E0",
 };
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const [email, emailError, handleEmailChange] = useInputValidation(emailRegex);
-  const [password, passwordError, handlePasswordChange] =
-    useInputValidation(passwordRegex);
+  const navigate = useNavigate();
+  const [email, emailError, handleEmailChange, resetEmail] = useInputValidation(emailRegex);
+  const [password, passwordError, handlePasswordChange, resetPassword] =useInputValidation(passwordRegex);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const { alert, showAlert, hideAlert } = useAlert();
 
   const handleSubmit = () => {
     setIsLoading(true);
     if (emailError || !email || !password) {
       setIsLoading(false);
-      return console.log("Por favor, rellena el formulario correctamente");
+      showAlert("Por favor, rellena el formulario correctamente", "warning");
+      return;
     }
 
     dispatch(loginUser({ email, password }))
       .unwrap()
       .then(() => {
-        console.log("Login exitoso");
+        dispatch(loginUser({ email, password }))
+          .unwrap()
+          .then(() => {
+            resetEmail();
+            resetPassword();
+            showAlert("Bienvenido", "success");
+            setTimeout(() => {
+              navigate("/");
+            }, 3000);
+          });
       })
       .catch((error) => {
-        console.log("Login fallido", error.message);
+        showAlert(error.message, "error");
       })
       .finally(() => {
         setIsLoading(false);
@@ -106,8 +118,9 @@ const LoginForm = () => {
               value={email}
               onChange={handleEmailChange}
               error={emailError}
-              helperText="Email inválido"
+              helperText="Por favor, introduce un email válido"
             />
+            
             <FormControl fullWidth required variant="outlined" sx={{ mt: 2 }}>
               <ValidatedTextField
                 label="Contraseña"
@@ -118,10 +131,13 @@ const LoginForm = () => {
               {showPassword ? (
                 <VisibilityOff
                   sx={confIcon}
-                  onClick={handleClickShowPassword}
+                  onClick={() => setShowPassword(false)}
                 />
               ) : (
-                <Visibility sx={confIcon} onClick={handleClickShowPassword} />
+                <Visibility
+                  sx={confIcon}
+                  onClick={() => setShowPassword(true)}
+                />
               )}
             </FormControl>
 
@@ -170,6 +186,14 @@ const LoginForm = () => {
           </Grid>
         </Grid>
       </Container>
+      {alert.open && (
+        <PopupAlert
+          open={alert.open}
+          message={alert.message}
+          color={alert.severity}
+          onClose={hideAlert}
+        />
+      )}
     </>
   );
 };

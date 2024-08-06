@@ -11,7 +11,12 @@ const useInputValidation = (regex) => {
     setError(isError);
   };
 
-  return [value, error, handleChange];
+  const resetValue = () => {
+    setValue('');
+    setError(false);
+  };
+
+  return [value, error, handleChange, resetValue];
 };
 
 export default useInputValidation;
