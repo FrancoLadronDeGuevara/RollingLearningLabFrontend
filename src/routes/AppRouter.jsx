@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { HomePage, LoginPage, NotFoundPage, RegisterPage, WorkshopPage } from "../pages/index";
+import { HomePage, LoginPage, NotFoundPage, RegisterPage, WorkshopPage, VerifyUserEmailPage } from "../pages/index";
 import RootLayout from "../components/RootLayout/RootLayout";
 
 export const AppRouter = () => {
@@ -13,6 +13,7 @@ export const AppRouter = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/workshops" element={<WorkshopPage />} />
+          <Route path="/verify-user/:id" element={<VerifyUserEmailPage />} />
         </Routes>
       </RootLayout>
     </BrowserRouter>
