@@ -1,21 +1,53 @@
-import { useState } from 'react';
+import { useCallback } from 'react';
+import Swal from 'sweetalert2';
 
-const useAlert = () => {
-  const [alert, setAlert] = useState({
-    open: false,
-    message: '',
-    severity: 'info'
-  });
+const useSweetAlert = () => {
+  const customAlert = useCallback((title, action = null) => {
+    Swal.fire({
+      title: `<div><span class="text-custom-modal">${title}</span></div>`,
+      showCancelButton: true,
+      confirmButtonColor: "#3085D6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Aceptar",
+      buttonsStyling: false,
+      customClass: {
+        container: "custom-container",
+        popup: "alert-custom",
+        confirmButton: "custom-confirm-button",
+        cancelButton: "custom-cancel-button",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (typeof action === "function") {
+          action();
+        }
+      }
+    });
+  }, []);
 
-  const showAlert = (message, severity = 'info') => {
-    setAlert({ open: true, message, severity });
-  };
+  const autoCloseAlert = useCallback((title, type) => {
+    Swal.fire({
+      position: "bottom",
+      title: `<div class="text-modal-container"><span class="text-modal">${title}</span></div>`,
+      color: "black",
+      icon: type,
+      showConfirmButton: false,
+      toast: true,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      },
+      customClass: {
+        container: "alert-container",
+        popup: type,
+      },
+    });
+  }, []);
 
-  const hideAlert = () => {
-    setAlert(prev => ({ ...prev, open: false }));
-  };
-
-  return { alert, showAlert, hideAlert };
+  return { customAlert, autoCloseAlert };
 };
 
-export default useAlert;
+export default useSweetAlert;
