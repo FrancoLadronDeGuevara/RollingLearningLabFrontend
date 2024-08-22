@@ -15,6 +15,7 @@ const userSlice = createSlice({
     isAuthenticated: false,
     loading: true,
     users: [],
+    user: null,
   },
 
   reducers: {},

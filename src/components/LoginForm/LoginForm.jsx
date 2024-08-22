@@ -17,14 +17,14 @@ import backgroundLogin from "../../assets/images/bg-login.webp";
 import logoRollingCode from "../../assets/images/logoRolling.webp";
 
 import useInputValidation from "../../hooks/useInputValidation";
-import { loginUser } from "../../redux/actions/user.actions";
+import { emailRegex, passwordRegex } from "../../helpers/regularExpressions";
+import { getUser, loginUser } from "../../redux/actions/user.actions";
 
 import ValidatedTextField from "../ValidatedTextField/ValidatedTextField";
 import PopoverCookies from "./PopoverCookies/PopoverCookies";
 import Loader from "../Loader/Loader";
-import { emailRegex, passwordRegex } from "../../helpers/regularExpressions";
-import useAlert from "../../hooks/useAlert";
-import PopupAlert from "../PopupAlert/PopupAlert";
+import useSweetAlert from "../../hooks/useAlert";
+
 
 const confIcon = {
   position: "absolute",
@@ -38,16 +38,17 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, emailError, handleEmailChange, resetEmail] = useInputValidation(emailRegex);
-  const [password, passwordError, handlePasswordChange, resetPassword] =useInputValidation(passwordRegex);
+  const [password, passwordError, handlePasswordChange, resetPassword] = useInputValidation(passwordRegex);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { alert, showAlert, hideAlert } = useAlert();
+  const { autoCloseAlert } = useSweetAlert();
+
 
   const handleSubmit = () => {
     setIsLoading(true);
     if (emailError || !email || !password) {
       setIsLoading(false);
-      showAlert("Por favor, rellena el formulario correctamente", "warning");
+      autoCloseAlert("Por favor, rellena el formulario correctamente", "warning");
       return;
     }
 
@@ -59,14 +60,15 @@ const LoginForm = () => {
           .then(() => {
             resetEmail();
             resetPassword();
-            showAlert("Bienvenido", "success");
+            autoCloseAlert("Bienvenido", "success");
+            dispatch(getUser())
             setTimeout(() => {
               navigate("/");
             }, 3000);
           });
       })
       .catch((error) => {
-        showAlert(error.message, "error");
+        autoCloseAlert(error.message, "error");
       })
       .finally(() => {
         setIsLoading(false);
@@ -171,29 +173,21 @@ const LoginForm = () => {
               <PopoverCookies />
             </Box>
             <Typography variant="body1" sx={{ color: "gray" }}>
-              ¿Olvidaste tu contraseña?
+              No estas registrado?
               <Link
-                to="/forgot-password"
+                to="/register"
                 style={{
                   color: "#5FA3E0",
                   textDecoration: "none",
                   marginLeft: 5,
                 }}
               >
-                Ingresá aqui
+                Regístrate aqui
               </Link>
             </Typography>
           </Grid>
         </Grid>
       </Container>
-      {alert.open && (
-        <PopupAlert
-          open={alert.open}
-          message={alert.message}
-          color={alert.severity}
-          onClose={hideAlert}
-        />
-      )}
     </>
   );
 };

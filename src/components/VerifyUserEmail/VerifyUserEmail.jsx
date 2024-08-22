@@ -9,15 +9,15 @@ import clientAxios from "../../utils/client.axios";
 import useAlert from "../../hooks/useAlert";
 
 import Loader from "../Loader/Loader";
-import PopupAlert from "../PopupAlert/PopupAlert";
 import DefaultButton from "../DefaultButton/DefaultButton";
+import useSweetAlert from "../../hooks/useAlert";
 
 const VerifyUserEmail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [userFound, setUserFound] = useState(null);
-  const { alert, showAlert, hideAlert } = useAlert();
+  const { autoCloseAlert} = useSweetAlert();
   const { isAuthenticated } = useSelector((state) => state.user);
 
     useEffect(() => {
@@ -31,7 +31,7 @@ const VerifyUserEmail = () => {
             setUserFound(res.data);
           })
           .catch((error) => {
-            showAlert(error, "error");
+            autoCloseAlert(error, "error");
             setTimeout(() => {
               navigate("/");
             }, 3000);
@@ -50,12 +50,12 @@ const VerifyUserEmail = () => {
       setTimeout(() => {
         navigate("/");
       }, 3000);
-      return showAlert("No se encontro el usuario", "error");
+      return autoCloseAlert("No se encontro el usuario", "error");
     }
 
     if (userFound.verified) {
       setIsLoading(false);
-      showAlert("El usuario ya ha sido verificado", "warning");
+      autoCloseAlert("El usuario ya ha sido verificado", "warning");
       setTimeout(() => {
         navigate("/");
       }, 3000);
@@ -69,13 +69,13 @@ const VerifyUserEmail = () => {
           setTimeout(() => {
             navigate("/login");
           }, 3000);
-          return showAlert(res.data.message, "success");
+          return autoCloseAlert(res.data.message, "success");
         });
     } catch (error) {
       setTimeout(() => {
         navigate("/");
       }, 3000);
-      return showAlert(error, "error");
+      return autoCloseAlert(error, "error");
     } finally {
       setIsLoading(false);
     }
@@ -130,15 +130,6 @@ const VerifyUserEmail = () => {
           />
         </Box>
       </Container>
-
-      {alert.open && (
-        <PopupAlert
-          open={alert.open}
-          message={alert.message}
-          color={alert.severity}
-          onClose={hideAlert}
-        />
-      )}
     </>
   );
 };

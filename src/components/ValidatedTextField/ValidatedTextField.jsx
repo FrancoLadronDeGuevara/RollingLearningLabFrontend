@@ -18,6 +18,11 @@ const ValidatedTextField = ({
     error={error}
     helperText={error ? helperText : ''}
     type={type}
+    FormHelperTextProps={{ 
+      sx: {
+        margin: 0,
+      }
+    }}
     {...props}
   />
 );
