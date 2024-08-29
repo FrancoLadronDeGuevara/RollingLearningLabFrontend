@@ -1,6 +1,7 @@
 import { Button } from "@mui/material"
+import { Link } from "react-router-dom"
 
-export const ButtonCall = ({textButton}) => {
+export const ButtonCall = ({textButton, linkTo ="/"}) => {
   return (
     <Button
     variant="contained"
@@ -8,7 +9,9 @@ export const ButtonCall = ({textButton}) => {
     color="error"
     sx={{ borderRadius: "1rem", padding: ".5rem 1rem" }}
   >
-    {textButton}
+   <Link to={linkTo} style={{textDecoration:"none", color:"#fff"}}>
+   {textButton}
+   </Link>
   </Button>
   )
 }

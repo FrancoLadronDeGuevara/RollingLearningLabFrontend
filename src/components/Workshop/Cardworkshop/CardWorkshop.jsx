@@ -12,14 +12,14 @@ export function CardWorkshop({ data }) {
   const color = grey[100];
 
   return (
-    <Grid container spacing={{ xs: 2, lg: 4 }} padding={{ xs: 2, sm: 3 }}>
+    <Grid container spacing={{ xs: 2, lg: 4 }} padding={{ xs: 2, sm: 4 }}>
       {data.map((item, index) => (
-        <Grid key={index} item xs={12} sm={6} md={3}>
+        <Grid key={index} item xs={12} sm={6} md={4}>
           <Card sx={{ width: "auto", background:color }}>
             <CardMedia
               component="img"
               alt={data.title}
-              height="140"
+              height="160"
               image={item.imagen}
             />
             <CardContent>
