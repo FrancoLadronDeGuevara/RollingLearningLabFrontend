@@ -1,33 +1,25 @@
 import {
   AppBar,
   Box,
-  Button,
   CssBaseline,
   Drawer,
   IconButton,
   Toolbar,
   Typography,
 } from "@mui/material";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import DrawerList from "./DrawerList/DrawerList";
 import Loader from "../Loader/Loader";
-import { useDispatch, useSelector } from "react-redux";
-import useSweetAlert from "../../hooks/useAlert";
-import { logoutUser } from "../../redux/actions/user.actions";
+import { useSelector } from "react-redux";
 
 const drawerWidth = 240;
 
 const Admin = (props) => {
   const { window } = props;
   const { loading } = useSelector((state) => state.user);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { autoCloseAlert, customAlert } = useSweetAlert();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -44,15 +36,6 @@ const Admin = (props) => {
     if (!isClosing) {
       setMobileOpen(!mobileOpen);
     }
-  };
-
-  const handleLogoutUser = () => {
-    customAlert("¿Deseas cerrar sesión?", () => {
-      dispatch(logoutUser()).then(() => {
-        autoCloseAlert("Sesion cerrada con exito", "success");
-        navigate("/")
-      })
-    })
   };
 
   const container =
@@ -91,14 +74,6 @@ const Admin = (props) => {
             >
               PANEL ADMINISTRADOR
             </Typography>
-            <Box sx={{ display: "flex", ml: "auto" }}>
-              <Button onClick={() => navigate("/")}>
-                <HomeOutlinedIcon sx={{ color: "#d81d26" }} />
-              </Button>
-              <Button onClick={handleLogoutUser}>
-                <LogoutOutlinedIcon sx={{ color: "#d81d26" }} />
-              </Button>
-            </Box>
           </Toolbar>
         </AppBar>
         <Box

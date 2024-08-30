@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Button,
   Chip,
   Container,
   Table,
@@ -11,6 +10,7 @@ import {
   TableRow,
 } from "@mui/material";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import InfoIcon from "@mui/icons-material/Info";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
@@ -20,36 +20,11 @@ import { useEffect, useState } from "react";
 import { getAllUsers } from "../../../redux/actions/user.actions";
 import Loader from "../../Loader/Loader";
 import ModalEditUser from "./ModalEditUser/ModalEditUser";
-
-function createData(
-  _id,
-  username,
-  profileImage,
-  email,
-  role,
-  verified,
-  registeredWorkshops,
-  createdWorkshops,
-  attendanceHistory,
-  active,
-  request
-) {
-  return {
-    _id,
-    username,
-    profileImage,
-    email,
-    role,
-    verified,
-    registeredWorkshops,
-    createdWorkshops,
-    attendanceHistory,
-    active,
-    request,
-  };
-}
+import { createDataUser } from "../../../helpers/createData";
+import { useNavigate } from "react-router-dom";
 
 export const Users = () => {
+  const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const dispatch = useDispatch();
@@ -62,7 +37,7 @@ export const Users = () => {
   const rows =
     users &&
     users.map((user) =>
-      createData(
+      createDataUser(
         user._id,
         user.username,
         user.profileImage,
@@ -149,36 +124,31 @@ export const Users = () => {
                         )}
                       </TableCell>
                       <TableCell align="center">
-                        <Button
+                        <ModeEditOutlineOutlinedIcon
                           onClick={() => {
                             setSelectedUser(row);
                             setOpenModal(true);
                           }}
-                          variant="contained"
-                          size="small"
+                          fontSize="large"
                           sx={{
+                            cursor: "pointer",
+                            color: "orange",
                             mr: { xs: 0, sm: 1 },
-                            backgroundColor: "#414141",
                           }}
-                        >
-                          <ModeEditOutlineOutlinedIcon sx={{ color: "#fff" }} />
-                        </Button>
+                        />
                       </TableCell>
                       <TableCell align="center">
-                        <Button
+                        <InfoIcon
+                          fontSize="large"
+                          color="info"
                           onClick={() => {
-                            setSelectedUser(row);
-                            setOpenModal(true);
+                            navigate(`user/${row._id}`);
                           }}
-                          variant="contained"
-                          size="small"
                           sx={{
+                            cursor: "pointer",
                             mr: { xs: 0, sm: 1 },
-                            backgroundColor: "#414141",
                           }}
-                        >
-                          ...
-                        </Button>
+                        />
                       </TableCell>
                     </TableRow>
                   ))

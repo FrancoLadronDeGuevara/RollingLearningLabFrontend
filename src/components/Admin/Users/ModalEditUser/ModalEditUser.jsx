@@ -28,7 +28,7 @@ const style = {
 };
 
 const ModalEditUser = ({ open, handleClose, user }) => {
-  const { _id, email, active, role, verified } = user;
+  const { _id, email, active, role } = user;
   const dispatch = useDispatch();
   const [activeUser, setActiveUser] = useState(active);
   const [roleUser, setRoleUser] = useState(role);
