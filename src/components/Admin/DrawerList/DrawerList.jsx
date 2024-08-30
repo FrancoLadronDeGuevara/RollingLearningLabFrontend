@@ -1,5 +1,4 @@
 import {
-  Toolbar,
   List,
   Divider,
   ListItem,
@@ -15,29 +14,38 @@ import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlin
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 import DesignServicesOutlinedIcon from "@mui/icons-material/DesignServicesOutlined";
-
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import useSweetAlert from "../../../hooks/useAlert";
+import { logoutUser } from "../../../redux/actions/user.actions";
 
 const itemsList = [
   {
     value: 0,
-    name: "Usuarios",
-    path: "users",
-    icon: <ManageAccountsOutlinedIcon />,
+    name: "Ir al Inicio",
+    path: "/",
+    icon: <HomeOutlinedIcon sx={{ color: "primary.main" }} />,
   },
   {
     value: 1,
-    name: "Workshops",
-    path: "workshops",
-    icon: <SchoolOutlinedIcon />,
+    name: "Usuarios",
+    path: "users",
+    icon: <ManageAccountsOutlinedIcon sx={{ color: "primary.main" }} />,
   },
   {
     value: 2,
+    name: "Workshops",
+    path: "workshops",
+    icon: <SchoolOutlinedIcon sx={{ color: "primary.main" }} />,
+  },
+  {
+    value: 3,
     name: "Eventos",
     path: "events",
-    icon: <EventOutlinedIcon />,
+    icon: <EventOutlinedIcon sx={{ color: "primary.main" }} />,
   },
 ];
 
@@ -45,22 +53,32 @@ const createList = [
   {
     name: "Crear workshop",
     path: "create-workshop",
-    icon: <DesignServicesOutlinedIcon />,
+    icon: <DesignServicesOutlinedIcon sx={{ color: "success.main" }} />,
   },
   {
     name: "Crear evento",
     path: "create-event",
-    icon: <EditCalendarOutlinedIcon />,
+    icon: <EditCalendarOutlinedIcon sx={{ color: "success.main" }} />,
   },
 ];
 
 const DrawerList = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
+  const { customAlert, autoCloseAlert } = useSweetAlert();
+
+  const handleLogoutUser = () => {
+    customAlert("¿Deseas cerrar sesión?", () => {
+      dispatch(logoutUser()).then(() => {
+        autoCloseAlert("Sesion cerrada con exito", "success");
+        navigate("/");
+      });
+    });
+  };
 
   return (
     <div>
-      <Toolbar />
       <Divider />
       <Avatar
         alt="user profile image"
@@ -96,14 +114,27 @@ const DrawerList = () => {
       <Divider />
       <List>
         {createList.map((text, index) => (
-          <ListItem key={index} disablePadding>
+          <ListItem
+            key={index}
+            disablePadding
+            onClick={() => navigate(text.path)}
+          >
             <ListItemButton>
               <ListItemIcon>{text.icon}</ListItemIcon>
               <ListItemText primary={text.name} />
             </ListItemButton>
           </ListItem>
         ))}
-      </List>  
+        <Divider />
+        <ListItem disablePadding onClick={handleLogoutUser}>
+          <ListItemButton>
+            <ListItemIcon>
+              <LogoutOutlinedIcon sx={{ color: "#d81d26" }} />
+            </ListItemIcon>
+            <ListItemText primary="Cerrar sesión" />
+          </ListItemButton>
+        </ListItem>
+      </List>
     </div>
   );
 };

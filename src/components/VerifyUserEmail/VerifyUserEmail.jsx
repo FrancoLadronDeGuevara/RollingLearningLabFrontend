@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import backgroundVerify from "../../assets/images/bg-verify-email.webp";
 
 import clientAxios from "../../utils/client.axios";
-import useAlert from "../../hooks/useAlert";
 
 import Loader from "../Loader/Loader";
 import DefaultButton from "../DefaultButton/DefaultButton";
@@ -28,6 +27,7 @@ const VerifyUserEmail = () => {
         clientAxios
           .get(`/users/get-user-to-verify/${id}`)
           .then((res) => {
+            console.log(res.data)
             setUserFound(res.data);
           })
           .catch((error) => {

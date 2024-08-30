@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-const useInputValidation = (regex) => {
-  const [value, setValue] = useState('');
+const useInputValidation = (regex, initialValue = '') => {
+  const [value, setValue] = useState(initialValue);
   const [error, setError] = useState(false);
 
   const handleChange = (e) => {
@@ -16,7 +16,13 @@ const useInputValidation = (regex) => {
     setError(false);
   };
 
-  return [value, error, handleChange, resetValue];
+  const setCustomValue = (newValue) => {
+    setValue(newValue);
+    const isError = !regex.test(newValue);
+    setError(isError);
+  };
+
+  return [value, error, handleChange, resetValue, setCustomValue];
 };
 
 export default useInputValidation;

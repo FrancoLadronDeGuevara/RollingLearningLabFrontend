@@ -5,6 +5,7 @@ import {
   editUser,
   getAllUsers,
   getUser,
+  getUserById,
   loginUser,
   logoutUser,
 } from "../actions/user.actions";
@@ -44,6 +45,19 @@ const userSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(getUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
+      .addCase(getUserById.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getUserById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.selectedUser = action.payload;
+      })
+      .addCase(getUserById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })

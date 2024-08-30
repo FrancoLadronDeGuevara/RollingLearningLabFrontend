@@ -11,6 +11,11 @@ export const getUser = createAsyncThunk("getUser", async () => {
     return response.data;
 });
 
+export const getUserById = createAsyncThunk("getUserById", async (id) => {
+    const response = await clientAxios.get(`/users/get-user-by-id/${id}`);
+    return response.data;
+});
+
 export const loginUser = createAsyncThunk("loginUser", async (data) => {
     const response = await clientAxios.post(`/users/login-user`, data);
     return response.data;
