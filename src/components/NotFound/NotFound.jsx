@@ -14,8 +14,8 @@ const NotFoundPage = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "lightgray", // Color de fondo gris claro
-        minHeight: "100vh", // Asegura que el fondo cubra toda la altura de la página
+        backgroundColor: "white",
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -28,9 +28,11 @@ const NotFoundPage = () => {
         <Box
           sx={{
             width: "100%",
-            maxWidth: "600px", // Ajusta el máximo ancho de la animación
-            margin: "0 auto", // Centra la animación horizontalmente
-            height: "auto",
+            height: "80vh", // Ajusta la altura a una cuarta parte de la ventana
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            overflow: "hidden", // Asegura que el contenido extra no se vea
           }}
         >
           <Player
@@ -39,8 +41,9 @@ const NotFoundPage = () => {
             src={animationData}
             style={{
               width: "100%",
-              height: "auto",
-            }} // Ajusta el ancho al 100% y la altura automática
+              height: "100%",
+              objectFit: "cover", // Asegura que la animación cubra completamente el contenedor
+            }}
           />
         </Box>
         <Typography variant="h4" component="h1" gutterBottom>
