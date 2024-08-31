@@ -2,6 +2,10 @@ import React from "react";
 import { Container, Grid, Typography, Box } from "@mui/material";
 import AboutUsCard from "../components/AboutUsCard/AboutUsCard";
 
+// Enlace a la imagen de fondo
+const backgroundImageUrl =
+  "https://cdn1.vectorstock.com/i/1000x1000/32/85/startup-programmers-team-work-flat-concept-vector-29033285.jpg";
+
 const teamMembers = [
   {
     image: "https://i.imgur.com/lLAowC8.jpeg",
@@ -40,34 +44,49 @@ const AboutUsPage = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "black",
+        backgroundImage: `url(${backgroundImageUrl})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
         color: "white",
         minHeight: "100vh",
-        padding: "40px 0",
-        textAlign: "center",
+        padding: "0",
+        margin: "0",
+        position: "relative",
       }}
     >
-      <Container>
-        <Typography variant="h3" component="h1" gutterBottom>
-          About Us
-        </Typography>
-        <Typography variant="h6" paragraph>
-          Conoce a nuestro equipo.
-        </Typography>
-        <Grid container spacing={4}>
-          {teamMembers.map((member, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <AboutUsCard
-                image={member.image}
-                title={member.title}
-                description={member.description}
-                linkedin={member.linkedin}
-                github={member.github}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
+      <Box
+        sx={{
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: 1,
+        }}
+      >
+        <Container>
+          <Typography variant="h3" component="h1" gutterBottom align="center">
+            About Us
+          </Typography>
+          <Typography variant="h6" paragraph align="center">
+            Conoce a nuestro equipo.
+          </Typography>
+          <Grid container spacing={4} justifyContent="center">
+            {teamMembers.map((member, index) => (
+              <Grid item xs={12} sm={6} md={3} key={index}>
+                <AboutUsCard
+                  image={member.image}
+                  title={member.title}
+                  description={member.description}
+                  linkedin={member.linkedin}
+                  github={member.github}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
     </Box>
   );
 };
