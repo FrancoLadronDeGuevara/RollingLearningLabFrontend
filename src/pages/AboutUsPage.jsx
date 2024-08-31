@@ -1,8 +1,6 @@
 import React from "react";
 import { Container, Grid, Typography, Box } from "@mui/material";
 import AboutUsCard from "../components/AboutUsCard/AboutUsCard";
-
-// Enlace a la imagen de fondo
 const backgroundImageUrl =
   "https://cdn1.vectorstock.com/i/1000x1000/32/85/startup-programmers-team-work-flat-concept-vector-29033285.jpg";
 
@@ -57,12 +55,18 @@ const AboutUsPage = () => {
       <Box
         sx={{
           backgroundColor: "rgba(0, 0, 0, 0.6)",
+          padding: "40px 0",
           position: "absolute",
           top: 0,
           left: 0,
           width: "100%",
           height: "100%",
           zIndex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          overflowY: "auto",
         }}
       >
         <Container>
@@ -72,9 +76,18 @@ const AboutUsPage = () => {
           <Typography variant="h6" paragraph align="center">
             Conoce a nuestro equipo.
           </Typography>
-          <Grid container spacing={4} justifyContent="center">
+          <Box sx={{ display: { xs: "block", md: "none" }, width: "100%" }}>
+            {}
             {teamMembers.map((member, index) => (
-              <Grid item xs={12} sm={6} md={3} key={index}>
+              <Box
+                key={index}
+                sx={{
+                  textAlign: "center",
+                  padding: "16px",
+                  width: "100%",
+                  height: "230px",
+                }}
+              >
                 <AboutUsCard
                   image={member.image}
                   title={member.title}
@@ -82,9 +95,24 @@ const AboutUsPage = () => {
                   linkedin={member.linkedin}
                   github={member.github}
                 />
-              </Grid>
+              </Box>
             ))}
-          </Grid>
+          </Box>
+          <Box sx={{ display: { xs: "none", md: "block" } }}>
+            <Grid container spacing={4} justifyContent="center">
+              {teamMembers.map((member, index) => (
+                <Grid item xs={12} sm={6} md={3} key={index}>
+                  <AboutUsCard
+                    image={member.image}
+                    title={member.title}
+                    description={member.description}
+                    linkedin={member.linkedin}
+                    github={member.github}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
         </Container>
       </Box>
     </Box>
