@@ -4,19 +4,13 @@ import AboutUsCard from "../components/AboutUsCard/AboutUsCard";
 
 const teamMembers = [
   {
-    image: "url/to/image1.jpg",
-    title: "Member 1",
-    description: "Description for member 1",
-    linkedin: "https://www.linkedin.com/in/member1",
-    github: "https://github.com/member1",
+    image: "https://i.imgur.com/TD4K",
+    title: "Carlos Javier Herrera",
+    description: "Descripción sobre ti.",
+    linkedin: "https://www.linkedin.com/in/tu-perfil",
+    github: "https://github.com/tu-usuario",
   },
-  {
-    image: "url/to/image2.jpg",
-    title: "Member 2",
-    description: "Description for member 2",
-    linkedin: "https://www.linkedin.com/in/member2",
-    github: "https://github.com/member2",
-  },
+  // Añade más miembros según sea necesario
 ];
 
 const AboutUsPage = () => {

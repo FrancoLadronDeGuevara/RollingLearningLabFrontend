@@ -32,17 +32,18 @@ const AboutUsCard = ({ image, title, description, linkedin, github }) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 345, margin: "16px", textAlign: "center" }}>
+    <Card sx={{ maxWidth: 500, margin: "16px", textAlign: "center" }}>
       <CardMedia
         component="img"
         image={image}
         alt={title}
         sx={{
-          width: expanded ? "100%" : "150px",
-          height: expanded ? "auto" : "150px",
-          borderRadius: "50%",
+          width: expanded ? "100%" : "300px",
+          height: expanded ? "auto" : "300px",
+          borderRadius: expanded ? "0" : "50%",
           margin: expanded ? "0" : "16px auto",
           cursor: "pointer",
+          objectFit: "cover",
         }}
         onClick={handleExpandClick}
       />
