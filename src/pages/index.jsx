@@ -8,6 +8,7 @@ export { VerifyUserEmailPage } from "./VerifyUserEmailPage";
 export { Users } from "../components/Admin/Users/Users";
 export { DetailsUser } from "../components/Admin/Users/DetailsUser/DetailsUser";
 export { Workshops } from "../components/Admin/Workshops/Workshops";
+export { WorkshopDetailPage } from "../pages/WorkshopDetailPage";
 export { CreateWorkshop } from "../components/Admin/Workshops/CreateWorkshop/CreateWorkshop";
 export { EditWorkshop } from "../components/Admin/Workshops/EditWorkshop/EditWorkshop";
 export { Events } from "../components/Admin/Events/Events";

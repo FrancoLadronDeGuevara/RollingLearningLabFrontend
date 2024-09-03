@@ -15,7 +15,8 @@ import {
   CreateEvent,
   EditWorkshop,
   DetailsUser,
-} from "../pages/index";
+  WorkshopDetailPage,
+} from "../pages";
 import RootLayout from "../components/RootLayout/RootLayout";
 
 export const AppRouter = () => {
@@ -55,12 +56,22 @@ export const AppRouter = () => {
             </RootLayout>
           }
         />
-
+        <Route
+          path="/workshop-detail/:id"
+          element={
+            <RootLayout>
+              <WorkshopDetailPage />
+            </RootLayout>
+          }
+        />
         <Route path="/admin/*" element={<AdminPage />}>
           <Route path="users" element={<Users />} />
           <Route path="users/user/:id" element={<DetailsUser />} />
           <Route path="workshops" element={<Workshops />} />
-          <Route path="workshops/edit-workshop/:id" element={<EditWorkshop />} />
+          <Route
+            path="workshops/edit-workshop/:id"
+            element={<EditWorkshop />}
+          />
           <Route path="create-workshop" element={<CreateWorkshop />} />
           <Route path="events" element={<Events />} />
           <Route path="create-event" element={<CreateEvent />} />
