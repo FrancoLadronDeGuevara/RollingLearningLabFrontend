@@ -2,6 +2,7 @@ export const dataTest = [
     {
       id: 1,
       speaker: "Pepe",
+      assitant:"Manuel",
       imagen: "src/assets/images/bannertestRL.jpg",
       title: "Titulo de prueba",
       description:
@@ -10,6 +11,7 @@ export const dataTest = [
     {
       id: 2,
       speaker: "Pepe",
+      assitant:"",
       imagen: "src/assets/images/imagTest2.jpg",
       title: "Titulo de prueba",
       description:
@@ -18,6 +20,7 @@ export const dataTest = [
     {
       id: 3,
       speaker: "Pepe",
+      assitant:"Jhon",
       imagen: "src/assets/images/bannertestRL.jpg",
       title: "Titulo de prueba",
       description:
