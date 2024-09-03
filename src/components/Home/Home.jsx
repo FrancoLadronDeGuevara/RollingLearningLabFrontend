@@ -1,9 +1,15 @@
-import { Container, Typography } from "@mui/material";
+import HeroSection from "./HeroSection/HeroSection";
+import { SectionAbout } from "./SectionAbout/SectionAbout";
+import { SectionEvent } from "./SectionEvent/SectionEvent";
+import { SectionWorkshops } from "./SectionWorkshops/SectionWorkshops";
 
 const Home = () => {
-  return <Container>
-    <Typography variant="h1">Home</Typography>
-  </Container>;
+  return <>
+    <HeroSection/>
+    <SectionWorkshops/>
+    <SectionAbout/>
+    <SectionEvent/>
+  </>;
 };
 
 export default Home;

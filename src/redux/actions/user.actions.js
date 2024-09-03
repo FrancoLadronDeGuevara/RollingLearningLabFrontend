@@ -1,8 +1,24 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import clientAxios from "../../utils/client.axios";
 
+export const createUser = createAsyncThunk("createUser", async (data) => {
+    const response = await clientAxios.post(`/users/create`, data);
+    return response.data;
+});
+
+export const updateUserInfo = createAsyncThunk("updateUserInfo", async (data) => {
+    const response = await clientAxios.put(`/users/edit/${data._id}`, data); 
+    return response.data;
+  }
+);
+
 export const getUser = createAsyncThunk("getUser", async () => {
     const response = await clientAxios.get(`/users/get-user`);
+    return response.data;
+});
+
+export const getUserById = createAsyncThunk("getUserById", async (id) => {
+    const response = await clientAxios.get(`/users/get-user-by-id/${id}`);
     return response.data;
 });
 
