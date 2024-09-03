@@ -6,7 +6,6 @@ import {
   ListItemIcon,
   ListItemText,
   Avatar,
-  Chip,
   Box,
 } from "@mui/material";
 import EditCalendarOutlinedIcon from "@mui/icons-material/EditCalendarOutlined";
@@ -16,13 +15,14 @@ import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 import DesignServicesOutlinedIcon from "@mui/icons-material/DesignServicesOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-
+import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import useSweetAlert from "../../../hooks/useAlert";
 import { logoutUser } from "../../../redux/actions/user.actions";
 
 const itemsList = [
+
   {
     value: 0,
     name: "Ir al Inicio",
@@ -86,15 +86,21 @@ const DrawerList = () => {
         sx={{ m: 1, width: 100, height: 100, mx: "auto" }}
       />
       <Box sx={{ width: "100%", textAlign: "center" }}>
-        <Chip
-          label={user?.username}
+        <Button
+          onClick={() => navigate("/user/info")}
+          variant="contained"
           sx={{
             my: 2,
             color: "#fff",
-            fontSize: 16,
+            fontSize: 14,
             backgroundColor: "#d81d26",
+            "&:hover": {
+              backgroundColor: "#b71c1c",
+            },
           }}
-        />
+        >
+          {user?.username}
+        </Button>
       </Box>
       <Divider />
       <List>
