@@ -8,7 +8,14 @@ import {
   getUserById,
   loginUser,
   logoutUser,
+  updateUserInfo,
 } from "../actions/user.actions";
+
+const initialState = {
+  user: null,
+  loading: false,
+  error: null,
+};
 
 const userSlice = createSlice({
   name: "users",
@@ -23,6 +30,19 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
+      // Reducer para manejar la acción `updateUserInfo`
+      .addCase(updateUserInfo.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateUserInfo.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload; // Actualiza el usuario en el estado global
+      })
+      .addCase(updateUserInfo.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
       .addCase(createUser.pending, (state) => {
         state.loading = true;
       })

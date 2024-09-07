@@ -2,38 +2,11 @@ import { Grid, Typography } from "@mui/material";
 import { Banner } from "../Banner/Banner";
 import { CardWorkshop } from "../Workshop/Cardworkshop/CardWorkshop";
 import bannertestRL from "../../assets/images/bannertestRL.jpg";
-import { CardDesktop } from "./CardworkshopDesktop/CardDesktop";
-
-const dataWorkshop = [
-  {
-    id:1,
-    speaker:"Pepe",
-    imagen: "src/assets/images/bannertestRL.jpg",
-    title: "Titulo de prueba",
-    description:
-      "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica",
-  },
-  {
-    id:2,
-    speaker:"Pepe",
-    imagen: "src/assets/images/bannertestRL.jpg",
-    title: "Titulo de prueba",
-    description:
-      "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica",
-  },
-  {
-    id:3,
-    speaker:"Pepe",
-    imagen: "src/assets/images/bannertestRL.jpg",
-    title: "Titulo de prueba",
-    description:
-      "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica",
-  },
-];
-
+import { useSelector } from "react-redux";
 export const Worshops = () => {
+  const { workshops } = useSelector((state) => state.workshop);
   return (
-    <Grid container spacing={4}>
+    <Grid container spacing={2}>
       <Grid item xs={12}>
         <Banner image={bannertestRL} />
       </Grid>
@@ -42,12 +15,11 @@ export const Worshops = () => {
           Workshops
         </Typography>
       </Grid>
-      <Grid item xs={12} sx={{ display: { xs: "block", sm: "none" } }}>
-        <CardWorkshop data={dataWorkshop} />
-      </Grid>
-      <Grid item xs={12} sx={{ display: { xs: "none", sm: "block" } }}>
-        <CardDesktop data={dataWorkshop} />
-      </Grid>
+      {workshops.map((item, index) => (
+        <Grid item xs={12} sm={6} md={3} key={index} sx={{paddingBlock:"1rem"}}>
+          <CardWorkshop item={item} key={index} />
+        </Grid>
+      ))}
     </Grid>
   );
 };

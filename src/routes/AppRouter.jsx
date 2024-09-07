@@ -19,6 +19,7 @@ import {
   Requests,
   SpeakerRequestForm,
 } from "../pages/index";
+  
 import RootLayout from "../components/RootLayout/RootLayout";
 
 export const AppRouter = () => {
@@ -33,7 +34,6 @@ export const AppRouter = () => {
             </RootLayout>
           }
         />
-
         <Route
           path="/workshops"
           element={
@@ -68,6 +68,14 @@ export const AppRouter = () => {
         }
       />
 
+        <Route
+          path="/workshop-detail/:id"
+          element={
+            <RootLayout>
+              <WorkshopDetailPage />
+            </RootLayout>
+          }
+        />
         <Route path="/admin/*" element={<AdminPage />}>
           <Route path="users" element={<Users />} />
           <Route path="users/user/:id" element={<DetailsUser />} />
@@ -76,11 +84,42 @@ export const AppRouter = () => {
             path="workshops/edit-workshop/:id"
             element={<EditWorkshop />}
           />
+          <Route
+            path="workshops/create-workshop/:id"
+            element={<CreateWorkshop />}
+          />
           <Route path="create-workshop" element={<CreateWorkshop />} />
           <Route path="events" element={<Events />} />
           <Route path="events/edit-event/:id" element={<EditEvent />} />
           <Route path="create-event" element={<CreateEvent />} />
           <Route path="requests" element={<Requests />} />
+          <Route path="events/create-event" element={<CreateEvent />} />
+        </Route>
+
+        <Route path="/user/*" element={<UserPage />}>
+          <Route path="info" element={<UserInfo />} />
+          <Route path="config" element={<UserConfig />} />
+          {/* <Route path="user-workshops" element={<UserWorkshops />} />
+          <Route
+            path="user-workshops/next-workshop"
+            element={<NextWorkshop />}
+          />
+          <Route path="user-workshops/fav-workshop" element={<FavWorkshop />} />
+          <Route
+            path="user-workshops/completed-workshop"
+            element={<CompletedWorkshop />}
+          />
+          <Route path="user-events" element={<UserEvents />} />
+          <Route path="user-events/next-event" element={<NextEvent />} />
+          <Route path="user-events/fav-event" element={<FavEvent />} />
+          <Route
+            path="user-events/completed-event"
+            element={<CompletedEvent />}
+          />*/}
+          {/* <Route
+            path="user-config/change-to-speaker"
+            element={<ChangeToSpeaker />}
+          /> */}
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -88,3 +127,4 @@ export const AppRouter = () => {
     </BrowserRouter>
   );
 };
+

@@ -27,15 +27,14 @@ const HeroSection = () => {
           component="h2"
           sx={{
             color:"#333333",
-            fontSize: { xs: "2.3rem", md: "2.5rem", lg:"4.5rem" },
+            fontSize: { xs: "2.3rem", md: "2.5rem", lg:"3.5rem" },
             fontWeight: "500",
             maxWidth: { sm: "80%", lg:"90%" },
             letterSpacing:{xs:"-0.1rem", md:"initial"},
             lineHeight:{xs:"2.3rem", md:"initial"}
           }}
         >
-          Aprendé a programar desde cero y sumate a la industria con mayor
-          crecimiento.
+        Descubre y participa en los próximos eventos y workshops de RollingCode School. Mantente al día con nuestras actividades y sigue aprendiendo junto a la comunidad.
         </Typography>
       </motion.div>
       <motion.div
@@ -44,8 +43,7 @@ const HeroSection = () => {
         transition={{ delay: 0.4 }}
       >
         <Typography sx={{maxWidth:{xs:"70%",sm:"80%", lg:"40%"}, fontWeight:"500", fontSize:{xs:"1.1rem", md:"1.3rem"}}} component="h2">
-          Estudiá programación Fullstack y cambiá tu vida laboral. Sumate a
-          nuestra comunidad y aprendé de verdad, con mentorías personalizadas.
+          Te perdiste o se te paso alguno? No te preocupes aqui podes encontrarlos. ¡Explora nuevas oportunidades para crecer como desarrollador!
         </Typography>
       </motion.div>
       <ButtonCall textButton={"Registrarse"}/>
