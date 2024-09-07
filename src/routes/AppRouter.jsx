@@ -18,6 +18,10 @@ import {
   EditEvent,
   Requests,
   SpeakerRequestForm,
+  WorkshopDetailPage,
+  UserPage,
+  UserInfo,
+  UserConfig,
 } from "../pages/index";
   
 import RootLayout from "../components/RootLayout/RootLayout";
