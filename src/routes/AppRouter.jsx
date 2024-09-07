@@ -15,13 +15,15 @@ import {
   CreateEvent,
   EditWorkshop,
   DetailsUser,
-
-  UserPage,
-  UserConfig,
-  UserInfo,
-} from "../pages/index";
+  EditEvent,
+  Requests,
+  SpeakerRequestForm,
   WorkshopDetailPage,
-} from "../pages";
+  UserPage,
+  UserInfo,
+  UserConfig,
+} from "../pages/index";
+  
 import RootLayout from "../components/RootLayout/RootLayout";
 
 export const AppRouter = () => {
@@ -60,6 +62,16 @@ export const AppRouter = () => {
             </RootLayout>
           }
         />
+
+        <Route
+        path="/speaker-request"
+        element={
+          <RootLayout>
+            <SpeakerRequestForm />
+          </RootLayout>
+        }
+      />
+
         <Route
           path="/workshop-detail/:id"
           element={
@@ -76,15 +88,15 @@ export const AppRouter = () => {
             path="workshops/edit-workshop/:id"
             element={<EditWorkshop />}
           />
-
           <Route
             path="workshops/create-workshop/:id"
             element={<CreateWorkshop />}
           />
-
           <Route path="create-workshop" element={<CreateWorkshop />} />
-
           <Route path="events" element={<Events />} />
+          <Route path="events/edit-event/:id" element={<EditEvent />} />
+          <Route path="create-event" element={<CreateEvent />} />
+          <Route path="requests" element={<Requests />} />
           <Route path="events/create-event" element={<CreateEvent />} />
         </Route>
 

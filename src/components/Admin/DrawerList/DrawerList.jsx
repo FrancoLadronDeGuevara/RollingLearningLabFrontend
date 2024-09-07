@@ -12,6 +12,7 @@ import EditCalendarOutlinedIcon from "@mui/icons-material/EditCalendarOutlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
+import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
 import DesignServicesOutlinedIcon from "@mui/icons-material/DesignServicesOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
@@ -47,6 +48,12 @@ const itemsList = [
     path: "events",
     icon: <EventOutlinedIcon sx={{ color: "primary.main" }} />,
   },
+  {
+    value: 4,
+    name: "Solicitudes",
+    path: "requests",
+    icon: <NoteAltOutlinedIcon sx={{ color: "primary.main" }} />,
+  }
 ];
 
 const createList = [
