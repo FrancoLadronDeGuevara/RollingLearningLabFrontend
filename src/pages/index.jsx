@@ -12,3 +12,6 @@ export { CreateWorkshop } from "../components/Admin/Workshops/CreateWorkshop/Cre
 export { EditWorkshop } from "../components/Admin/Workshops/EditWorkshop/EditWorkshop";
 export { Events } from "../components/Admin/Events/Events";
 export { CreateEvent } from "../components/Admin/Events/CreateEvent/CreateEvent";
+export { EditEvent } from "../components/Admin/Events/EditEvent/EditEvent";
+export { Requests } from "../components/Admin/Requests/Requests";
+export { SpeakerRequestForm } from "../components/SpeakerRequestForm/SpeakerRequestForm";
