@@ -121,12 +121,16 @@ const DrawerList = () => {
               </ListItemIcon>
               <ListItemText primary="Configuración" />
             </ListItemButton>
-            <ListItemButton onClick={() => navigate("/user/change-to-speaker")}>
-              <ListItemIcon>
-                <SpeakerNotesOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText primary="Solicitar Speaker" />
-            </ListItemButton>
+            {user?.role === "user" && (
+              <ListItemButton
+                onClick={() => navigate("/user/speaker-request")}
+              >
+                <ListItemIcon>
+                  <SpeakerNotesOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Solicitar Speaker" />
+              </ListItemButton>
+            )}
           </List>
         </Collapse>
 

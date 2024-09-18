@@ -1,5 +1,5 @@
-import { Worshops } from "../components/Workshop/Worshops";
+import { WorkshopsList } from "../components/WorkshopsList/WorshopsList";
 
 export const WorkshopPage = () => {
-  return <Worshops />;
+  return <WorkshopsList />;
 };

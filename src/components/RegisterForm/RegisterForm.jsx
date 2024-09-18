@@ -26,14 +26,7 @@ import {
 } from "../../helpers/regularExpressions";
 import { createUser } from "../../redux/actions/user.actions";
 import useSweetAlert from "../../hooks/useAlert";
-
-const confIcon = {
-  position: "absolute",
-  right: 10,
-  top: 15,
-  cursor: "pointer",
-  color: "#5FA3E0",
-};
+import { confIcon } from "../../helpers/styles";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -191,6 +184,7 @@ const RegisterForm = () => {
 
             <FormControl fullWidth required variant="outlined" sx={{ mt: 2 }}>
               <TextField
+                size="small"
                 id="password2"
                 type={showConfirmPassword ? "text" : "password"}
                 autoComplete="current-password"
