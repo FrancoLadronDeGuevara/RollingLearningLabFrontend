@@ -1,7 +1,7 @@
 export const pages = [
     {
       name: "Workshops",
-      path: "/workshops",
+      path: "/workshops-list",
     },
     {
       name: "Eventos",

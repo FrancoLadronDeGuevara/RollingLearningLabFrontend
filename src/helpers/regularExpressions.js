@@ -14,3 +14,5 @@ export const speakerRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{4,40}$/;
 
 export const zoomUrlRegex =
   /^https:\/\/[\w.-]+\.zoom\.us\/j\/\d{9,11}(\?pwd=[\w.-]+)?$/;
+
+  export const userDescriptionRegex = /^$|^(?!\s*$).{1,150}$/;

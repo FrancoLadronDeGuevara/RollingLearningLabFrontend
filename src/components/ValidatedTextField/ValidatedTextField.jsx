@@ -11,7 +11,6 @@ const ValidatedTextField = ({
 }) => (
   <TextField
     fullWidth
-    required
     size='small'
     label={label}
     value={value}

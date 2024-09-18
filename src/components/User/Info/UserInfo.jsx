@@ -1,7 +1,5 @@
-import React from "react";
 import {
   Box,
-  Container,
   Typography,
   Avatar,
   Grid,
@@ -9,121 +7,96 @@ import {
   Card,
   CardContent,
   CardMedia,
-  IconButton,
-  Button,
 } from "@mui/material";
-import { Email, WhatsApp, LinkedIn, GitHub } from "@mui/icons-material";
+import { Email } from "@mui/icons-material";
 import { useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from "react-router-dom";
+import DefaultButton from "../../DefaultButton/DefaultButton";
 
 export const UserInfo = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
 
   return (
-    <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "flex-start",
-          gap: 3,
-          mb: 4,
-        }}
-      >
-        <Avatar
-          alt="user profile image"
-          src={user?.profileImage}
-          sx={{
-            width: { xs: 140, md: 200 },
-            height: { xs: 140, md: 200 },
-          }}
-        />
-        <Box
+    <>
+      <Grid container maxWidth="md" sx={{ mt: 4 }}>
+        <Grid
+          item
+          xs={12}
+          md={6}
           sx={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "flex-start",
-            textAlign: "left",
-            gap: 1,
-            maxWidth: "500px",
+            alignItems: "center",
+          }}
+        >
+          <Avatar
+            alt="user profile image"
+            src={user?.profileImage}
+            sx={{
+              width: 300,
+              height: 300,
+            }}
+          />
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            p: 1,
           }}
         >
           <Typography
-            variant="h1"
+            variant="h3"
             sx={{
               fontWeight: "bold",
-              fontSize: { xs: "2.5rem", md: "3.5rem" },
-              mb: 2,
+              color: "#414141",
+              textAlign: { xs: "center", md: "left" },
             }}
           >
             {user?.username || "Nombre de usuario"}
           </Typography>
-          <Typography variant="body1" color="text.secondary">
-            {user?.bio || "Puede agregar una breve descripción"}
-          </Typography>
-
-          <Box sx={{ mt: 2, display: "flex", gap: 2 }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: { xs: "center", md: "left" },
+              mt: 1,
+            }}
+          >
+            <Email sx={{ mr: 1, color: "gray" }} />
             {user?.email && (
-              <IconButton
-                component="a"
-                href={`mailto:${user.email}`}
-                aria-label="email"
-              >
-                <Email />
-                <Typography sx={{ ml: 1 }}>Email: {user.email}</Typography>
-              </IconButton>
-            )}
-            {user?.whatsapp && (
-              <IconButton
-                component="a"
-                href={`https://wa.me/${user.whatsapp}`}
-                aria-label="whatsapp"
-              >
-                <WhatsApp />
-                <Typography sx={{ ml: 1 }}>
-                  WhatsApp: {user.whatsapp}
-                </Typography>
-              </IconButton>
-            )}
-            {user?.linkedin && (
-              <IconButton
-                component="a"
-                href={user.linkedin}
-                aria-label="linkedin"
-              >
-                <LinkedIn />
-                <Typography sx={{ ml: 1 }}>LinkedIn</Typography>
-              </IconButton>
-            )}
-            {user?.github && (
-              <IconButton component="a" href={user.github} aria-label="github">
-                <GitHub />
-                <Typography sx={{ ml: 1 }}>GitHub</Typography>
-              </IconButton>
+              <Typography variant="body2" sx={{ color: "gray" }}>
+                {user.email}
+              </Typography>
             )}
           </Box>
-
+          <Box
+            sx={{
+              width: "100%",
+              minHeight: 100,
+              p: 1,
+              mt: 2,
+              border: "1px solid lightgray",
+              borderRadius: 1,
+            }}
+          >
+            <Typography variant="body1" color="text.secondary">
+              {user?.userDescription || "Sin descripción..."}
+            </Typography>
+          </Box>
           <Box sx={{ mt: 2 }}>
-            <Button
-              onClick={() => navigate("/user/config")}
-              variant="contained"
-              sx={{
-                my: 2,
-                color: "#fff",
-                fontSize: 14,
-                backgroundColor: "#d81d26",
-                "&:hover": {
-                  backgroundColor: "#b71c1c",
-                },
-              }}
-            >
-              {"Editar Perfil"}
-            </Button>
+            <DefaultButton
+              className="default-button-reverse"
+              buttonText="Editar perfil"
+              onclick={() => navigate("/user/config")}
+            />
           </Box>
-        </Box>
-      </Box>
-
+        </Grid>
+      </Grid>
       <Divider sx={{ my: 4 }} />
 
       <Typography variant="h4" sx={{ mb: 2 }}>
@@ -131,7 +104,6 @@ export const UserInfo = () => {
       </Typography>
 
       <Grid container spacing={3}>
-        {/* Tarjetas de workshops */}
         <Grid item xs={12} md={6}>
           <Card>
             <CardMedia
@@ -175,7 +147,7 @@ export const UserInfo = () => {
           </Card>
         </Grid>
       </Grid>
-    </Container>
+    </>
   );
 };
 

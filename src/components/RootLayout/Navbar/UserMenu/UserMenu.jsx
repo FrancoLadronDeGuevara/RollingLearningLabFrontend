@@ -16,7 +16,7 @@ import { logoutUser } from "../../../../redux/actions/user.actions";
 const settings = [
   {
     name: "Perfil",
-    to: `user/info`,
+    to: `/user/info`,
   },
   {
     name: "Cerrar sesión",

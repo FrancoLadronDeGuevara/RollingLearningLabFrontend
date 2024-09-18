@@ -1,22 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
-  Container,
   CssBaseline,
   Drawer,
   AppBar,
   Toolbar,
   IconButton,
   Typography,
-  Avatar,
-  Grid,
-  Divider,
-  Card,
-  CardContent,
-  CardMedia,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useSelector } from "react-redux";
 import DrawerList from "./DrawerList/DrawerList";
 import { Outlet } from "react-router-dom";
 
@@ -24,7 +16,6 @@ const drawerWidth = 240;
 
 const User = (props) => {
   const { window } = props;
-  const { user } = useSelector((state) => state.user);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -122,7 +113,6 @@ const User = (props) => {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >

@@ -24,15 +24,7 @@ import ValidatedTextField from "../ValidatedTextField/ValidatedTextField";
 import PopoverCookies from "./PopoverCookies/PopoverCookies";
 import Loader from "../Loader/Loader";
 import useSweetAlert from "../../hooks/useAlert";
-
-
-const confIcon = {
-  position: "absolute",
-  right: 10,
-  top: 15,
-  cursor: "pointer",
-  color: "#5FA3E0",
-};
+import { confIcon } from "../../helpers/styles";
 
 const LoginForm = () => {
   const dispatch = useDispatch();

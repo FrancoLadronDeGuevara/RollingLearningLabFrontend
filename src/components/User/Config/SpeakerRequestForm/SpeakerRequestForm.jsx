@@ -12,11 +12,10 @@ import {
   createRoleRequest,
   getRequest,
   resendRequest,
-} from "../../redux/actions/request.actions";
-import DefaultButton from "../DefaultButton/DefaultButton";
+} from "../../../../redux/actions/request.actions";
+import DefaultButton from "../../../DefaultButton/DefaultButton";
 
-import bgImage from "../../assets/images/bg-verify-email.webp";
-import useSweetAlert from "../../hooks/useAlert";
+import useSweetAlert from "../../../../hooks/useAlert";
 import { useNavigate } from "react-router-dom";
 
 export const SpeakerRequestForm = () => {
@@ -89,12 +88,10 @@ export const SpeakerRequestForm = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundImage: `url(${bgImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundColor: "#f5f5f5",
       }}
     >
-      <Paper elevation={3} sx={{ p: 4, my: 4, mx: 1, maxWidth: "sm" }}>
+      <Paper elevation={10} sx={{ p: 4, my: 4, mx: 1, maxWidth: "sm" }}>
         {request?.roleRequest?.status === "PENDIENTE" && (
           <Box sx={{ minHeight: "50vh" }}>
             <Typography variant="h4" gutterBottom textAlign="center">

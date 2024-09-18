@@ -84,7 +84,7 @@ const workshopSlice = createSlice({
       .addCase(getWorkshop.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      });
+      })
   },
 });
 

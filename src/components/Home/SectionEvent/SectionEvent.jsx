@@ -1,10 +1,13 @@
-import { Container, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { CarrouselWorkshop } from "../SectionWorkshops/CarrouselViewWorkshops/CarrouselWorkshop";
 import {dataTest} from '../../../mocks/dataTest'
 import { ButtonCall } from "../ButtonCTA/ButtonCall";
+import { useSelector } from "react-redux";
+import WorkshopEventCard from "../../WorkshopEventCard/WorkshopEventCard";
 
 export const SectionEvent = () => {
+  const {events } = useSelector((state) => state.event);
 
   const stylesText = {
     color: "#444444",
@@ -35,6 +38,15 @@ export const SectionEvent = () => {
         </motion.div>
         <CarrouselWorkshop data={dataTest} />
         <ButtonCall textButton={"ver más"}/>
+        <Box>
+          <Typography>Ultimos workshops</Typography>
+          {events.map(
+            (event) =>
+              event.active && (
+                <WorkshopEventCard key={event._id} {...event} isWorkshop={false} />
+              )
+          )}
+        </Box>
     </Container>
   );
 };

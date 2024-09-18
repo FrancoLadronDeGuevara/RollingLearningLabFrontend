@@ -54,6 +54,10 @@ const useImageHandler = (initialImage = null) => {
     return imageUrl;
   };
 
+  const clearPreview = () => {
+    setPreviewImage(initialImage);
+  };
+
   return {
     previewImage,
     handleReadImage,
@@ -61,6 +65,7 @@ const useImageHandler = (initialImage = null) => {
     isLoading,
     error,
     setPreviewImage,
+    clearPreview,
   };
 };
 
