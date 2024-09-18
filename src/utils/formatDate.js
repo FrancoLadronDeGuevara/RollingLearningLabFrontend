@@ -10,3 +10,27 @@ export const toArgentinaTime = (dateString) => {
   
     return `${day}/${month} ${hours}:${minutes}`;
   }
+
+export const formatedDate = (date) => {
+  const [day, month, year] = date.split("-");
+  const monthNames = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
+  if (!day || !month || !year || month < 1 || month > 12) {
+    return "Fecha no válida";
+  }
+  const monthName = monthNames[parseInt(month) - 1];
+  const formattedDay = day.padStart(2, "0");
+  return `${monthName} ${formattedDay}, ${year}`;
+};
