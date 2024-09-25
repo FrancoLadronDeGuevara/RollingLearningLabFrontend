@@ -1,32 +1,34 @@
 import {
-    Box,
-    Button,
-    Card,
-    CardMedia,
-    Container,
-    Divider,
-    Typography,
-  } from "@mui/material";
-  import { useEffect } from "react";
-  import { useDispatch, useSelector } from "react-redux";
-  import { useParams } from "react-router-dom";
-  import { getWorkshop } from "../../redux/actions/workshop.actions";
-  import Loader from "../../components/Loader/Loader";
+  Box,
+  Button,
+  Card,
+  CardMedia,
+  Container,
+  Divider,
+  Typography,
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getWorkshop } from "../../redux/actions/workshop.actions";
+import Loader from "../../components/Loader/Loader";
 import CommentSection from "../CommentSection/CommentSection";
 
 const WorkshopDetail = () => {
-    const { id } = useParams();
-    const dispatch = useDispatch();
-    const { workshop, loading } = useSelector((state) => state.workshop);
+  const { id } = useParams();
+
+  const dispatch = useDispatch();
+  const { workshop, loading } = useSelector((state) => state.workshop);
+  useEffect(() => {
+    dispatch(getWorkshop(id));
+  }, []);
+
   
-    useEffect(() => {
-      dispatch(getWorkshop(id));
-    }, []);
 
   return (
     <>
       {loading && <Loader />}
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" disableGutters>
         <Box
           sx={{
             minHeight: "100vh",
@@ -40,11 +42,16 @@ const WorkshopDetail = () => {
             <Typography variant="h4" component={"h2"}>
               {workshop?.title}
             </Typography>
-            <Box sx={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
-            <Button variant="contained" sx={{ alignSelf: "flex-start" }}>
-              inscribirse
-            </Button>
-
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Button variant="contained" sx={{ alignSelf: "flex-start" }}>
+                inscribirse
+              </Button>
             </Box>
             <Card>
               <CardMedia
@@ -76,29 +83,30 @@ const WorkshopDetail = () => {
                 </Typography>
               </>
             )}
-            <Box>
-              <Typography variant="body1" component="p">
-                <span style={{ fontWeight: "bolder" }}>Speaker:</span>{" "}
-                {workshop?.speakers.join(", ")}
-              </Typography>
-              {workshop?.attendees && (
-                <Typography variant="body2">
-                  <span style={{ fontWeight: "bolder" }}>Asistentes:</span>{" "}
-                  {workshop?.attendees.join(", ")}
+            {workshop?.speakers && (
+              <Box>
+                <Typography variant="body1" component="p">
+                  <span style={{ fontWeight: "bolder" }}>Speaker:</span>{" "}
+                  {workshop?.speakers.join(", ")}
                 </Typography>
-              )}
-            </Box>
+                {workshop?.attendees > 0 && (
+                  <Typography variant="body2">
+                    <span style={{ fontWeight: "bolder" }}>Asistentes:</span>{" "}
+                    {workshop?.attendees.join(", ")}
+                  </Typography>
+                )}
+              </Box>
+            )}
             <Typography variant="body1" component="p">
               {workshop?.description}
             </Typography>
           </Box>
-          
         </Box>
-          <Divider/>
-          <CommentSection isWorkshop/>
+        <Divider />
+        <CommentSection isWorkshop />
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default WorkshopDetail
+export default WorkshopDetail;

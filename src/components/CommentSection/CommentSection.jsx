@@ -29,42 +29,53 @@ const CommentSection = ({ isWorkshop }) => {
       disableGutters
       maxWidth={false}
       sx={{
-        backgroundColor: "#f5f5f5",
+        px: 2,
       }}
     >
-      <Typography variant="h4" component={"h2"}>
+      <Typography variant="h4" component={"h2"} sx={{ my: 2 }}>
         Comentarios (
-        {isWorkshop ? workshopComments.length : eventComments.length})
+        {isWorkshop
+          ? workshopComments.reduce(
+              (acc, comment) => acc + 1 + (comment.replies?.length || 0),
+              0
+            )
+          : eventComments.reduce(
+              (acc, comment) => acc + 1 + (comment.replies?.length || 0),
+              0
+            )}
+        )
       </Typography>
-      <Divider sx={{ my: 1 }} />
 
-      {isWorkshop ? (
-        workshopComments.map((comment) => (
-          <CommentBox key={comment._id} comment={comment} />
-        ))
-      ) : eventComments?.length === 0 ? (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-          }}
-        >
-          <Typography
-            variant="h6"
-            component={"h3"}
-            sx={{ color: "gray", fontStyle: "italic" }}
+      <Divider sx={{ my: 1 }} />
+      <Box>
+        {isWorkshop ? (
+          workshopComments?.map((comment) => (
+            <CommentBox key={comment._id} comment={comment} />
+          ))
+        ) : eventComments?.length === 0 ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+            }}
           >
-            No hay comentarios aún
-          </Typography>
-        </Box>
-      ) : (
-        eventComments.map((comment) => (
-          <CommentBox key={comment._id} comment={comment} />
-        ))
-      )}
-      <NewComment isWorkshop={isWorkshop} />
+            <Typography
+              variant="h6"
+              component={"h3"}
+              sx={{ color: "gray", fontStyle: "italic" }}
+            >
+              No hay comentarios aún
+            </Typography>
+          </Box>
+        ) : (
+          eventComments.map((comment) => (
+            <CommentBox key={comment._id} comment={comment} />
+          ))
+        )}
+        <NewComment isWorkshop={isWorkshop} />
+      </Box>
     </Container>
   );
 };

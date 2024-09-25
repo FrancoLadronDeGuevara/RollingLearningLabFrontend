@@ -46,12 +46,27 @@ export const deleteReply = createAsyncThunk("deleteReply", async (data) => {
     return response.data;
 })
 
-export const likeComment = createAsyncThunk("likeComment", async (data) => {
-    const response = await clientAxios.put(`/comments/like-comment/${data._id}`, data);
+export const editReply = createAsyncThunk("editReply", async (data) => {
+    const response = await clientAxios.put(`/comments/edit-reply/${data._id}`, data);
+    return response.data;
+})
+
+export const blockReply = createAsyncThunk("blockReply", async (data) => {
+    const response = await clientAxios.put(`/comments/block-reply/${data._id}`);
     return response.data;
 })
 
 export const blockComment = createAsyncThunk("blockComment", async (data) => {
-    const response = await clientAxios.put(`/comments/block-comment/${data._id}`, data);
+    const response = await clientAxios.put(`/comments/block-comment/${data._id}`);
+    return response.data;
+})
+
+export const unblockComment = createAsyncThunk("unblockComment", async (data) => {
+    const response = await clientAxios.put(`/comments/unblock-comment/${data._id}`);
+    return response.data;
+})
+
+export const unblockReply = createAsyncThunk("unblockReply", async (data) => {
+    const response = await clientAxios.put(`/comments/unblock-reply/${data._id}`);
     return response.data;
 })

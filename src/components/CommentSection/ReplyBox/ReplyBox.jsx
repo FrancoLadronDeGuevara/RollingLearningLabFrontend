@@ -11,29 +11,25 @@ import RecommendOutlinedIcon from "@mui/icons-material/RecommendOutlined";
 import SendIcon from "@mui/icons-material/Send";
 import OptionsMenu from "../OptionsMenu/OptionsMenu";
 import { useDispatch, useSelector } from "react-redux";
-import { likeComment } from "../../../redux/actions/like.actions";
-import {
-  editComment,
-  getEventComments,
-  getWorkshopComments,
-} from "../../../redux/actions/comment.actions";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es";
+import { likeComment } from "../../../redux/actions/like.actions";
+import {
+  editReply,
+  getEventComments,
+  getWorkshopComments,
+} from "../../../redux/actions/comment.actions";
 import { useState } from "react";
-import NewReply from "../NewReply/NewReply";
-import ReplyBox from "../ReplyBox/ReplyBox";
 import useSweetAlert from "../../../hooks/useAlert";
 
 dayjs.extend(relativeTime);
 dayjs.locale("es");
 
-const CommentBox = ({ comment }) => {
-  const { author, blocked, content, createdAt, likes, replies, workshop } =
-    comment;
-  const dispatch = useDispatch();
+const ReplyBox = ({ reply, isLast, workshopId, eventId, comment }) => {
   const { user } = useSelector((state) => state.user);
-  const [replyOpen, setReplyOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { author, content, createdAt, likes, blocked } = reply;
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(content);
   const [isLoading, setIsLoading] = useState(false);
@@ -42,25 +38,32 @@ const CommentBox = ({ comment }) => {
   const isLiked = likes?.find((like) => like === user?._id);
   const isOwner = author?._id === user?._id;
   const formattedCreatedAt = dayjs(createdAt).fromNow().replace("hace ", "");
+
   const handleLikeComment = () => {
-    dispatch(likeComment(comment._id)).then(() => {
-      if (workshop) {
-        dispatch(getWorkshopComments(comment.workshop));
+    dispatch(likeComment(reply._id)).then(() => {
+      if (workshopId) {
+        dispatch(getWorkshopComments(workshopId));
       } else {
-        dispatch(getEventComments(comment.event));
+        dispatch(getEventComments(eventId));
       }
     });
   };
+
   const handleSaveEdit = () => {
     customAlert("¿Guardar cambios?", () => {
       setIsLoading(true);
-      dispatch(editComment({ _id: comment._id, content: editedContent }))
+      dispatch(
+        editReply({
+          _id: reply._id,
+          content: editedContent,
+        })
+      )
         .then(() => {
           autoCloseAlert("Comentario editado", "success");
           setIsEditing(false);
         })
         .catch((error) => {
-          autoCloseAlert(error.message, "error");
+          autoCloseAlert(error, "error");
         })
         .finally(() => setIsLoading(false));
     });
@@ -69,22 +72,37 @@ const CommentBox = ({ comment }) => {
   return (
     <>
       {blocked ? (
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            pt: 2,
+            ml: 1.9,
+            pl: 4,
+            borderLeft: !isLast ? "1px solid #e0e0e0" : "none",
+            position: "relative",
+          }}
+        >
+          {isLast && (
+            <Divider
+              orientation="vertical"
+              sx={{
+                position: "absolute",
+                left: 0,
+                top: 0,
+                height: "50%",
+                zIndex: -1,
+              }}
+            />
+          )}
           <Box sx={{ position: "relative" }}>
             <Avatar
               sx={{ width: 32, height: 32, position: "relative", top: "50%" }}
             />
-            {replies.length > 0 && (
-              <Divider
-                orientation="vertical"
-                sx={{
-                  top: "100%",
-                  height: "120%",
-                  position: "absolute",
-                  left: 15,
-                }}
-              />
-            )}
+            <Divider
+              sx={{ position: "absolute", width: 30, left: -32, top: 8 }}
+            />
           </Box>
           <Box
             sx={{
@@ -99,11 +117,7 @@ const CommentBox = ({ comment }) => {
           >
             {user?.role === "admin" && (
               <Box sx={{ position: "absolute", top: 10, right: 5 }}>
-                <OptionsMenu
-                  isOwner={isOwner}
-                  isComment
-                  comment={comment}
-                />
+                <OptionsMenu isOwner={isOwner} comment={comment} reply={reply} />
               </Box>
             )}
             <Typography
@@ -114,7 +128,7 @@ const CommentBox = ({ comment }) => {
                 fontSize: { xs: 14, md: 18 },
               }}
             >
-              {isOwner ? "Tu comentario ha sido bloqueado" : "Comentario bloqueado"}
+              {isOwner ? "Tu respuesta ha sido bloqueada" : "Repuesta bloqueada"}
             </Typography>
             <Typography
               variant="body1"
@@ -125,42 +139,41 @@ const CommentBox = ({ comment }) => {
                 fontSize: { xs: 12, md: 16 },
               }}
             >
-              Este comentario ha sido bloqueado porque infringe las normas de la
+              Esta respuesta ha sido bloqueada porque infringe las normas de la
               comunidad
             </Typography>
           </Box>
         </Box>
       ) : (
-        <Box sx={{ display: "flex", gap: 1, mt: 5 }}>
-          <Box sx={{ position: "relative" }}>
-            <Avatar
-              src={author?.profileImage}
-              sx={{ width: 32, height: 32, position: "relative", top: "50%" }}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            pt: 2,
+            ml: 1.9,
+            pl: 4,
+            borderLeft: !isLast ? "1px solid #e0e0e0" : "none",
+            position: "relative",
+          }}
+        >
+          {isLast && (
+            <Divider
+              orientation="vertical"
+              sx={{
+                position: "absolute",
+                left: 0,
+                top: 0,
+                height: "50%",
+                zIndex: -1,
+              }}
             />
-            {replies.length > 0 && (
-              <Divider
-                orientation="vertical"
-                sx={{
-                  top: "50%",
-                  height: "50%",
-                  position: "absolute",
-                  left: 15,
-                  zIndex: -1,
-                }}
-              />
-            )}
-            {replies.length === 0 && replyOpen && (
-              <Divider
-                orientation="vertical"
-                sx={{
-                  top: "50%",
-                  height: "50%",
-                  position: "absolute",
-                  left: 15,
-                  zIndex: -1,
-                }}
-              />
-            )}
+          )}
+          <Box sx={{ position: "relative" }}>
+            <Divider
+              sx={{ position: "absolute", width: 30, left: -32, top: 8 }}
+            />
+            <Avatar src={author?.profileImage} sx={{ width: 32, height: 32 }} />
           </Box>
           <Box
             sx={{
@@ -169,7 +182,7 @@ const CommentBox = ({ comment }) => {
                 content: '""',
                 position: "absolute",
                 left: 0,
-                top: "50%",
+                top: -10,
                 width: 0,
                 height: 0,
                 borderStyle: "solid",
@@ -202,8 +215,9 @@ const CommentBox = ({ comment }) => {
               {user?.role === "admin" || isOwner ? (
                 <OptionsMenu
                   isOwner={isOwner}
-                  isComment
+                  isComment={false}
                   comment={comment}
+                  reply={reply}
                   onEdit={() => setIsEditing(true)}
                 />
               ) : null}
@@ -212,6 +226,7 @@ const CommentBox = ({ comment }) => {
               <TextField
                 fullWidth
                 multiline
+                maxRows={4}
                 value={editedContent}
                 onChange={(e) => setEditedContent(e.target.value)}
                 sx={{ mt: 1, mb: 1 }}
@@ -287,19 +302,6 @@ const CommentBox = ({ comment }) => {
                 >
                   Me gusta
                 </Typography>
-                <Typography
-                  variant="body2"
-                  onClick={() => setReplyOpen(!replyOpen)}
-                  sx={{
-                    color: "gray",
-                    fontWeight: "bolder",
-                    cursor: "pointer",
-                    fontSize: 12,
-                    ":hover": { textDecoration: "underline" },
-                  }}
-                >
-                  Responder
-                </Typography>
               </Box>
               {likes?.length > 0 && (
                 <Box sx={{ display: "flex", alignItems: "center", ml: 2 }}>
@@ -318,27 +320,8 @@ const CommentBox = ({ comment }) => {
           </Box>
         </Box>
       )}
-      {replyOpen && (
-        <NewReply
-          showReply={replyOpen}
-          commentId={comment._id}
-          closeReply={() => setReplyOpen(false)}
-          hasReplies={replies?.length > 0}
-        />
-      )}
-      {replies?.length > 0 &&
-        replies.map((reply, index) => (
-          <ReplyBox
-            key={reply._id}
-            reply={reply}
-            workshopId={comment.workshop}
-            eventId={comment.event}
-            comment={comment}
-            isLast={index === replies.length - 1}
-          />
-        ))}
     </>
   );
 };
 
-export default CommentBox;
+export default ReplyBox;
