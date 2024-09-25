@@ -224,7 +224,7 @@ export const DetailsUser = () => {
                     backgroundColor: "#fff",
                   }}
                 >
-                  <Typography variant="body2" sx={{ my: 2 }}>
+                  {/* <Typography variant="body2" sx={{ my: 2 }}>
                     {selectedUser?.username} ha comentado en {" "}
                     {comment.workshop ? "el workshop " : "el evento "}
                     <Link
@@ -236,7 +236,7 @@ export const DetailsUser = () => {
                     >
                       {comment.workshop ? comment.workshop.title : comment.event.title}{" "}
                     </Link>
-                  </Typography>
+                  </Typography> */}
                 </Box>
               ))
             ) : (
