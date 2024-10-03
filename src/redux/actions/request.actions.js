@@ -21,6 +21,11 @@ export const createWorkshopRequest = createAsyncThunk("createWorkshopRequest", a
     return response.data;
 })
 
+export const getWorkshopRequest = createAsyncThunk("getWorkshopRequest", async () => {
+    const response = await clientAxios.get(`/requests/get-workshop-request`);
+    return response.data;
+})
+
 export const editRequest = createAsyncThunk("editRequest", async (data) => {
     const response = await clientAxios.put(`/requests/edit-request/${data._id}`, data);
     return response.data;
@@ -31,7 +36,7 @@ export const cancelRequest = createAsyncThunk("cancelRequest", async (data) => {
     return response.data;
 })
 
-export const getRequest = createAsyncThunk("getRequest", async (id) => {
+export const getRoleRequest = createAsyncThunk("getRoleRequest", async (id) => {
     const response = await clientAxios.get(`/requests/get-role-request/${id}`);
     return response.data;
 })

@@ -20,3 +20,13 @@ export const removeEventFavorite = createAsyncThunk("removeEventFavorite", async
     const response = await clientAxios.post(`/users/remove-favorite-event`, eventId);
     return response.data;
 });
+
+export const getFavoriteWorkshops = createAsyncThunk("getFavoriteWorkshops", async () => {
+    const response = await clientAxios.get(`/users/get-favorite-workshops`);
+    return response.data;
+});
+
+export const getFavoriteEvents = createAsyncThunk("getFavoriteEvents", async () => {
+    const response = await clientAxios.get(`/users/get-favorite-events`);
+    return response.data;
+})

@@ -4,12 +4,15 @@ import { SectionEvent } from "./SectionEvent/SectionEvent";
 import { SectionWorkshops } from "./SectionWorkshops/SectionWorkshops";
 
 const Home = () => {
-  return <>
-    <HeroSection/>
-    <SectionWorkshops/>
-    <SectionAbout/>
-    <SectionEvent/>
-  </>;
+
+  return (
+    <>
+      <HeroSection />
+      <SectionWorkshops />
+      <SectionAbout />
+      <SectionEvent />
+    </>
+  );
 };
 
 export default Home;

@@ -1,5 +1,4 @@
 import {
-  Box,
   Chip,
   Container,
   Table,
@@ -41,6 +40,7 @@ export const Requests = () => {
       createDataRequest(
         request._id,
         request.user,
+        request.workshop,
         request.roleRequest,
         request.workshopRequest,
         request.adminNote
@@ -89,17 +89,44 @@ export const Requests = () => {
                     >
                       <TableCell align="left">{row.user.username}</TableCell>
                       <TableCell align="center">
-                        {row.roleRequest.status !== null ? (
-                          <Chip label={row.roleRequest.status} />
+                        {row.roleRequest?.status ? (
+                          <Chip
+                            label={row.roleRequest.status}
+                            color={
+                              row.roleRequest.status === "ACEPTADA"
+                                ? "success"
+                                : row.roleRequest.status === "RECHAZADA"
+                                ? "error"
+                                : "warning"
+                            }
+                          />
+                        ) : row.workshopRequest?.status ? (
+                          <Chip
+                            label={row.workshopRequest.status}
+                            color={
+                              row.workshopRequest.status === "ACEPTADA"
+                                ? "success"
+                                : row.workshopRequest.status === "RECHAZADA"
+                                ? "error"
+                                : "warning"
+                            }
+                          />
                         ) : (
-                          <Chip label={row.workshopRequest.status} />
+                          <Chip label="Sin estado" />
                         )}
                       </TableCell>
+
                       <TableCell align="center">
                         {row.user.role === "user" ? (
-                          <Chip color="primary" label="Usuario" />
+                          <Chip
+                            sx={{ backgroundColor: "#26A69A", color: "#fff" }}
+                            label="Usuario"
+                          />
                         ) : (
-                          <Chip color="warning" label="Speaker" />
+                          <Chip
+                            sx={{ backgroundColor: "#FBC02D", color: "#fff" }}
+                            label="Speaker"
+                          />
                         )}
                       </TableCell>
                       <TableCell align="center">
@@ -133,7 +160,6 @@ export const Requests = () => {
                       <TableCell align="center">
                         <RemoveRedEyeOutlinedIcon
                           fontSize="large"
-                          
                           onClick={() => {
                             setSelectedRequest(row);
                             setOpenModalRequest(true);

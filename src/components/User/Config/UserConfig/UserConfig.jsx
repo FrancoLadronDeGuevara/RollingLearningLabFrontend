@@ -10,6 +10,7 @@ import {
   BottomNavigation,
   BottomNavigationAction,
   FormControl,
+  Divider,
 } from "@mui/material";
 import UploadFileTwoToneIcon from "@mui/icons-material/UploadFileTwoTone";
 import { useSelector, useDispatch } from "react-redux";
@@ -163,90 +164,69 @@ export const UserConfig = () => {
     <>
       {isLoading && <Loader />}
       <Container maxWidth={false} sx={{ mt: 4, mb: 4 }}>
+        <Typography
+          variant="h3"
+          sx={{ textAlign: "center", color: "#414141", fontWeight: "bold" }}
+        >
+          Configuración
+        </Typography>
+        <Divider sx={{ my: 2 }} />
         <Grid container>
           <Grid
             item
-            xs={6}
-            md={4}
+            xs={8}
+            md={6}
             sx={{
               position: "relative",
               mx: "auto",
               height: "100%",
+              minHeight: 400,
             }}
           >
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", color: "#414141", mb: 2 }}
+              sx={{
+                fontWeight: "bold",
+                color: "#414141",
+                mb: 2,
+                width: "100%",
+                textAlign: "center",
+              }}
             >
               Cambiar imagen de perfil
             </Typography>
-            <Avatar
-              variant="rounded"
-              src={previewImage || currentImageUrl}
-              sx={{
-                width: { xs: "100%", md: 300 },
-                height: "100%",
-                mx: "auto",
-              }}
-            />
-            <Button
-              size="small"
-              sx={{
-                position: "absolute",
-                fontSize: 8,
-                transform: "translate(0%, -100%)",
-              }}
-              color="success"
-              component="label"
-              variant="contained"
-              startIcon={<UploadFileTwoToneIcon />}
-            >
-              Subir imagen*
-              <VisuallyHiddenInput
-                type="file"
-                onChange={(e) => {
-                  handleReadImage(e);
-                  setUploadedImage(e.target.files[0]);
-                }}
-                accept="image/*"
-              />
-            </Button>
-            <Box
-              sx={{
-                mt: 3,
-                p: 1,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <BottomNavigation
+            <Box sx={{ position: "relative" }}>
+              <Avatar
+                variant="rounded"
+                src={previewImage || currentImageUrl}
                 sx={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  width: 300,
-                  gap: 2,
+                  width: "100%",
+                  height: "100%",
+                  mx: "auto",
                 }}
-                value={avatars.indexOf(currentImageUrl)}
-                onChange={(e, newValue) => {
-                  handleAvatarChange(avatars[newValue]);
+              />
+              <Button
+                size="small"
+                sx={{
+                  position: "absolute",
+                  fontSize: 8,
+                  transform: "translate(0%, -100%)",
                 }}
+                color="success"
+                component="label"
+                variant="contained"
+                startIcon={<UploadFileTwoToneIcon />}
               >
-                {avatars.map((avatar, index) => (
-                  <BottomNavigationAction
-                    onClick={() => handleAvatarChange(avatar)}
-                    key={index}
-                    icon={
-                      <Avatar
-                        variant="rounded"
-                        src={avatar}
-                        alt={avatar}
-                        sx={{ width: 64, height: 64 }}
-                      />
-                    }
-                  />
-                ))}
-              </BottomNavigation>
+                Subir imagen*
+                <VisuallyHiddenInput
+                  type="file"
+                  onChange={(e) => {
+                    handleReadImage(e);
+                    setUploadedImage(e.target.files[0]);
+                  }}
+                  accept="image/*"
+                />
+              </Button>
             </Box>
           </Grid>
           <Grid
@@ -257,7 +237,62 @@ export const UserConfig = () => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              mt: { xs: 22, md: 0 },
+              mt: { xs: 5, md: 0 },
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: "bold",
+                color: "#414141",
+                mb: 2,
+                width: "100%",
+                textAlign: "center",
+              }}
+            >
+              Avatars por defecto
+            </Typography>
+            <BottomNavigation
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                width: 300,
+                gap: { xs: 1, md: 5 },
+              }}
+              value={avatars.indexOf(currentImageUrl)}
+              onChange={(e, newValue) => {
+                handleAvatarChange(avatars[newValue]);
+              }}
+            >
+              {avatars.map((avatar, index) => (
+                <BottomNavigationAction
+                  onClick={() => handleAvatarChange(avatar)}
+                  key={index}
+                  icon={
+                    <Avatar
+                      variant="rounded"
+                      src={avatar}
+                      alt={avatar}
+                      sx={{
+                        width: { xs: 64, md: 100 },
+                        height: { xs: 64, md: 100 },
+                      }}
+                    />
+                  }
+                />
+              ))}
+            </BottomNavigation>
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            md={12}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              mt: { xs: 15, md: 5 },
             }}
           >
             <Typography

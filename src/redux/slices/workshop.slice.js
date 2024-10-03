@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   createWorkshop,
+  createWorkshopBySpeaker,
   deleteWorkshop,
   getAllWorkshops,
   getWorkshop,
@@ -39,6 +40,19 @@ const workshopSlice = createSlice({
         state.workshops.push(action.payload);
       })
       .addCase(createWorkshop.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
+      .addCase(createWorkshopBySpeaker.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createWorkshopBySpeaker.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.workshops.push(action.payload);
+      })
+      .addCase(createWorkshopBySpeaker.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })

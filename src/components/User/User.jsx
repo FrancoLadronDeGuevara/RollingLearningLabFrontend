@@ -50,12 +50,20 @@ const User = (props) => {
       >
         <Toolbar>
           <IconButton
-            color="inherit"
-            edge="start"
+            size="large"
+            aria-haspopup="true"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
           >
-            <MenuIcon />
+            <MenuIcon
+              sx={{
+                borderRadius: 1,
+                backgroundColor: "#D81D26",
+                color: "white",
+                width: 40,
+                height: 30,
+                display: { xs: "block", sm: "none" },
+              }}
+            />
           </IconButton>
           <Typography
             variant="h6"

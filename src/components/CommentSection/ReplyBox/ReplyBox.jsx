@@ -22,6 +22,7 @@ import {
 } from "../../../redux/actions/comment.actions";
 import { useState } from "react";
 import useSweetAlert from "../../../hooks/useAlert";
+import { useNavigate } from "react-router-dom";
 
 dayjs.extend(relativeTime);
 dayjs.locale("es");
@@ -29,6 +30,7 @@ dayjs.locale("es");
 const ReplyBox = ({ reply, isLast, workshopId, eventId, comment }) => {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { author, content, createdAt, likes, blocked } = reply;
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(content);
@@ -117,7 +119,11 @@ const ReplyBox = ({ reply, isLast, workshopId, eventId, comment }) => {
           >
             {user?.role === "admin" && (
               <Box sx={{ position: "absolute", top: 10, right: 5 }}>
-                <OptionsMenu isOwner={isOwner} comment={comment} reply={reply} />
+                <OptionsMenu
+                  isOwner={isOwner}
+                  comment={comment}
+                  reply={reply}
+                />
               </Box>
             )}
             <Typography
@@ -128,7 +134,9 @@ const ReplyBox = ({ reply, isLast, workshopId, eventId, comment }) => {
                 fontSize: { xs: 14, md: 18 },
               }}
             >
-              {isOwner ? "Tu respuesta ha sido bloqueada" : "Repuesta bloqueada"}
+              {isOwner
+                ? "Tu respuesta ha sido bloqueada"
+                : "Repuesta bloqueada"}
             </Typography>
             <Typography
               variant="body1"
@@ -173,7 +181,11 @@ const ReplyBox = ({ reply, isLast, workshopId, eventId, comment }) => {
             <Divider
               sx={{ position: "absolute", width: 30, left: -32, top: 8 }}
             />
-            <Avatar src={author?.profileImage} sx={{ width: 32, height: 32 }} />
+            <Avatar
+              onClick={() => navigate(`/user-profile/${author?._id}`)}
+              src={author?.profileImage}
+              sx={{ width: 32, height: 32, cursor: "pointer" }}
+            />
           </Box>
           <Box
             sx={{

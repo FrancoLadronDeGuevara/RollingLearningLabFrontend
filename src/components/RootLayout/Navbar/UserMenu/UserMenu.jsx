@@ -13,17 +13,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import useSweetAlert from "../../../../hooks/useAlert";
 import { logoutUser } from "../../../../redux/actions/user.actions";
 
-const settings = [
-  {
-    name: "Perfil",
-    to: `/user/info`,
-  },
-  {
-    name: "Cerrar sesión",
-    to: () => {},
-  },
-];
-
 const UserMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,9 +24,9 @@ const UserMenu = () => {
     customAlert("¿Deseas cerrar sesión?", () => {
       dispatch(logoutUser()).then(() => {
         autoCloseAlert("Sesion cerrada con exito", "success");
-        navigate("/")
-      })
-    })
+        navigate("/");
+      });
+    });
   };
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -50,7 +39,7 @@ const UserMenu = () => {
       <Box sx={{ ml: "auto" }}>
         <Tooltip title="Abrir menu">
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar alt="User profile image" src={user?.profileImage}/>
+            <Avatar alt="User profile image" src={user?.profileImage} />
           </IconButton>
         </Tooltip>
         <Menu
@@ -84,24 +73,18 @@ const UserMenu = () => {
               </MenuItem>
             </NavLink>
           )}
-          {settings.map((setting, index) => (
-            <NavLink
-              key={index}
-              onClick={
-                setting.name == "Cerrar sesión"
-                  ? handleLogoutUser
-                  : handleCloseUserMenu
-              }
-              to={setting.to}
-              style={{ textDecoration: "none" }}
-            >
-              <MenuItem>
-                <Typography sx={{ color: "#414141" }}>
-                  {setting.name.toUpperCase()}
-                </Typography>
-              </MenuItem>
-            </NavLink>
-          ))}
+          <NavLink
+            onClick={handleCloseUserMenu}
+            to={`/user/config`}
+            style={{ textDecoration: "none" }}
+          >
+            <MenuItem>
+              <Typography sx={{ color: "#414141" }}>PERFIL</Typography>
+            </MenuItem>
+          </NavLink>
+          <MenuItem onClick={handleLogoutUser}>
+            <Typography sx={{ color: "#414141" }}>CERRAR SESIÓN</Typography>
+          </MenuItem>
         </Menu>
       </Box>
     </>
