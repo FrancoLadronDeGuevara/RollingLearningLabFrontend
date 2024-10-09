@@ -19,3 +19,4 @@ export { SpeakerRequestForm } from "../components/User/Config/SpeakerRequestForm
 export { UserPage } from "./UserPage";
 export { UserConfig } from "../components/User/Config/UserConfig/UserConfig";
 export { UserInfo } from "../components/User/Info/UserInfo";
+export { FAQpage } from "../pages/FAQpage";

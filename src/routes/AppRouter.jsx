@@ -22,6 +22,7 @@ import {
   UserPage,
   UserInfo,
   UserConfig,
+  FAQpage,
 } from "../pages/index";
 
 import RootLayout from "../components/RootLayout/RootLayout";
@@ -60,6 +61,14 @@ export const AppRouter = () => {
           element={
             <RootLayout>
               <NotFoundPage />
+            </RootLayout>
+          }
+        />
+        <Route
+          path="/FAQ"
+          element={
+            <RootLayout>
+              <FAQpage />
             </RootLayout>
           }
         />
