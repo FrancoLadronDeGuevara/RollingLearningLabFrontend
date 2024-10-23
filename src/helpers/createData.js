@@ -92,12 +92,20 @@ export const createDataEvent = (
   };
 };
 
-export const createDataRequest = (_id, user, roleRequest, workshopRequest, adminNote) => {
+export const createDataRequest = (
+  _id,
+  user,
+  workshop,
+  roleRequest,
+  workshopRequest,
+  adminNote
+) => {
   return {
     _id,
     user,
+    workshop,
     roleRequest,
     workshopRequest,
-    adminNote
+    adminNote,
   };
 };

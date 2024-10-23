@@ -24,6 +24,7 @@ import { useState } from "react";
 import NewReply from "../NewReply/NewReply";
 import ReplyBox from "../ReplyBox/ReplyBox";
 import useSweetAlert from "../../../hooks/useAlert";
+import { useNavigate } from "react-router-dom";
 
 dayjs.extend(relativeTime);
 dayjs.locale("es");
@@ -32,6 +33,7 @@ const CommentBox = ({ comment }) => {
   const { author, blocked, content, createdAt, likes, replies, workshop } =
     comment;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
   const [replyOpen, setReplyOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -134,8 +136,9 @@ const CommentBox = ({ comment }) => {
         <Box sx={{ display: "flex", gap: 1, mt: 5 }}>
           <Box sx={{ position: "relative" }}>
             <Avatar
+              onClick={ () => navigate(`/user-profile/${author?._id}`)}
               src={author?.profileImage}
-              sx={{ width: 32, height: 32, position: "relative", top: "50%" }}
+              sx={{ width: 32, height: 32, position: "relative", top: "50%", cursor: "pointer" }}
             />
             {replies.length > 0 && (
               <Divider

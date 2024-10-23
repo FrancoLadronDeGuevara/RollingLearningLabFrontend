@@ -6,7 +6,8 @@ import {
   deleteRequest,
   editRequest,
   getAllRequests,
-  getRequest,
+  getRoleRequest,
+  getWorkshopRequest,
   resendRequest,
   sendNote,
 } from "../actions/request.actions";
@@ -56,6 +57,18 @@ const requestSlice = createSlice({
         state.error = action.error.message;
       })
 
+      .addCase(getWorkshopRequest.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getWorkshopRequest.fulfilled, (state, action) => {
+        state.loading = false;
+        state.request = action.payload;
+      })
+      .addCase(getWorkshopRequest.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
       .addCase(editRequest.pending, (state) => {
         state.loading = true;
       })
@@ -84,14 +97,14 @@ const requestSlice = createSlice({
         state.error = action.error.message;
       })
 
-      .addCase(getRequest.pending, (state) => {
+      .addCase(getRoleRequest.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getRequest.fulfilled, (state, action) => {
+      .addCase(getRoleRequest.fulfilled, (state, action) => {
         state.loading = false;
         state.request = action.payload;
       })
-      .addCase(getRequest.rejected, (state, action) => {
+      .addCase(getRoleRequest.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })

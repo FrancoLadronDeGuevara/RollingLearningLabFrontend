@@ -27,7 +27,7 @@ const ModalRequest = ({ open, handleClose, request }) => {
   const [error, setError] = useState(null);
   const [roleOrWorkshopRequest, setRoleOrWorkshopRequest] = useState(null);
   const { autoCloseAlert, customAlert } = useSweetAlert();
-
+console.log(request)
   const handleSubmit = () => {
     if (roleOrWorkshopRequest === "RECHAZADA" && note.trim().length < 20) {
       setError("La nota debe tener al menos 20 caracteres");
@@ -40,7 +40,7 @@ const ModalRequest = ({ open, handleClose, request }) => {
       adminNote: note,
       referenceId: roleRequest.request
         ? request.user._id
-        : request.workshop._id,
+        : request.workshop,
     };
 
     if (roleRequest.request) {
@@ -54,7 +54,6 @@ const ModalRequest = ({ open, handleClose, request }) => {
         status: roleOrWorkshopRequest,
       };
     }
-
     customAlert(
       roleOrWorkshopRequest === "ACEPTADA"
         ? "¿Deseas aceptar la solicitud?"

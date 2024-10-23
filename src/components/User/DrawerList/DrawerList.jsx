@@ -8,12 +8,14 @@ import {
   Avatar,
   Box,
   Collapse,
+  Typography,
+  Chip,
 } from "@mui/material";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
+import DesignServicesOutlinedIcon from "@mui/icons-material/DesignServicesOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
@@ -21,20 +23,20 @@ import SpeakerNotesOutlinedIcon from "@mui/icons-material/SpeakerNotesOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import ScheduleOutlinedIcon from "@mui/icons-material/ScheduleOutlined";
-import Button from "@mui/material/Button";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import useSweetAlert from "../../../hooks/useAlert";
 import { logoutUser } from "../../../redux/actions/user.actions";
 import { useState } from "react";
+import DefaultButton from "../../DefaultButton/DefaultButton";
 
 const itemsList = [
   {
     value: 0,
     name: "Ir al Inicio",
     path: "/",
-    icon: <HomeOutlinedIcon sx={{ color: "primary.main" }} />,
+    icon: <HomeOutlinedIcon sx={{ color: "#414141" }} />,
   },
 ];
 
@@ -69,32 +71,36 @@ const DrawerList = () => {
   };
 
   return (
-    <div>
-      <Divider />
-      <Avatar
-        alt="user profile image"
-        src={user?.profileImage}
-        sx={{ m: 1, width: 100, height: 100, mx: "auto" }}
-      />
+    <Box
+      sx={{
+        backgroundColor: "#f5f5f5",
+        height: "100vh",
+        color: "#414141",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <Box sx={{ width: "100%", textAlign: "center" }}>
-        <Button
-          onClick={() => navigate("/user/info")}
-          variant="contained"
-          sx={{
-            my: 2,
-            color: "#fff",
-            fontSize: 14,
-            backgroundColor: "#d81d26",
-            "&:hover": {
-              backgroundColor: "#b71c1c",
-            },
-          }}
-        >
-          {user?.username}
-        </Button>
+        <Avatar
+          alt="user profile image"
+          src={user?.profileImage}
+          sx={{ m: 1, width: 100, height: 100, mx: "auto" }}
+        />
+        <Box sx={{ mb: 2 }}>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+            {user?.username}
+          </Typography>
+          {user?.role === "admin" ? (
+            <Chip label="Administrador" color="error" sx={{ width: 100 }} />
+          ) : user?.role === "speaker" ? (
+            <Chip label="Speaker" color="warning" sx={{ width: 100 }} />
+          ) : (
+            <Chip label="Usuario" color="primary" sx={{ width: 100 }} />
+          )}
+        </Box>
       </Box>
       <Divider />
-      <List>
+      <List sx={{ flexGrow: 1 }}>
         {itemsList.map((item, index) => (
           <ListItem key={index} disablePadding>
             <ListItemButton onClick={() => navigate(item.path)}>
@@ -103,30 +109,42 @@ const DrawerList = () => {
             </ListItemButton>
           </ListItem>
         ))}
+        {user?.role === "speaker" && (
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => navigate("create-workshop")}>
+              <ListItemIcon>
+                <DesignServicesOutlinedIcon sx={{ color: "#414141" }} />
+              </ListItemIcon>
+              <ListItemText primary="Crear Workshop" />
+            </ListItemButton>
+          </ListItem>
+        )}
 
         <ListItem disablePadding>
           <ListItemButton onClick={handleUsersClick}>
             <ListItemIcon>
-              <ManageAccountsOutlinedIcon sx={{ color: "primary.main" }} />
+              <ManageAccountsOutlinedIcon sx={{ color: "#414141" }} />
             </ListItemIcon>
-            <ListItemText primary="Opciones de usuario" />
+            <ListItemText primary="Opciones" />
             {openUsers ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
         </ListItem>
         <Collapse in={openUsers} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding sx={{ pl: 4 }}>
+          <List
+            component="div"
+            disablePadding
+            sx={{ backgroundColor: "#e3e3e3", pl: 2 }}
+          >
             <ListItemButton onClick={() => navigate("config")}>
               <ListItemIcon>
-                <SettingsOutlinedIcon />
+                <SettingsOutlinedIcon sx={{ color: "#414141" }} />
               </ListItemIcon>
               <ListItemText primary="Configuración" />
             </ListItemButton>
             {user?.role === "user" && (
-              <ListItemButton
-                onClick={() => navigate("/user/speaker-request")}
-              >
+              <ListItemButton onClick={() => navigate("/user/speaker-request")}>
                 <ListItemIcon>
-                  <SpeakerNotesOutlinedIcon />
+                  <SpeakerNotesOutlinedIcon sx={{ color: "#414141" }} />
                 </ListItemIcon>
                 <ListItemText primary="Solicitar Speaker" />
               </ListItemButton>
@@ -137,39 +155,50 @@ const DrawerList = () => {
         <ListItem disablePadding>
           <ListItemButton onClick={handleWorkshopsClick}>
             <ListItemIcon>
-              <SchoolOutlinedIcon sx={{ color: "primary.main" }} />
+              <SchoolOutlinedIcon sx={{ color: "#414141" }} />
             </ListItemIcon>
             <ListItemText primary="Workshops" />
             {openWorkshops ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
         </ListItem>
         <Collapse in={openWorkshops} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding sx={{ pl: 4 }}>
-            <ListItemButton
-              onClick={() => navigate("/user/user-workshops/fav-workshop")}
-            >
+          <List
+            component="div"
+            disablePadding
+            sx={{ backgroundColor: "#e3e3e3", pl: 2 }}
+          >
+            <ListItemButton onClick={() => navigate("workshops/favorites")}>
               <ListItemIcon>
-                <FavoriteOutlinedIcon />
+                <FavoriteOutlinedIcon sx={{ color: "#414141" }} />
               </ListItemIcon>
-              <ListItemText primary="Workshops Favoritos" />
+              <ListItemText primary="Favoritos" />
             </ListItemButton>
-            <ListItemButton
-              onClick={() =>
-                navigate("/user/user-workshops/completed-workshop")
-              }
-            >
+            <ListItemButton onClick={() => navigate("workshops/completed")}>
               <ListItemIcon>
-                <CheckCircleOutlineOutlinedIcon />
+                <CheckCircleOutlineOutlinedIcon sx={{ color: "#414141" }} />
               </ListItemIcon>
-              <ListItemText primary="Workshops Completados" />
+              <ListItemText primary="Asistidos" />
             </ListItemButton>
-            <ListItemButton
-              onClick={() => navigate("/user/user-workshops/next-workshop")}
-            >
+            {user?.role === "admin" ? (
+              <ListItemButton onClick={() => navigate("workshops/created")}>
+                <ListItemIcon>
+                  <DesignServicesOutlinedIcon sx={{ color: "#414141" }} />
+                </ListItemIcon>
+                <ListItemText primary="Creados" />
+              </ListItemButton>
+            ) : user?.role === "speaker" ? (
+              <ListItemButton onClick={() => navigate("workshops/created")}>
+                <ListItemIcon>
+                  <DesignServicesOutlinedIcon sx={{ color: "#414141" }} />
+                </ListItemIcon>
+                <ListItemText primary="Creados" />
+              </ListItemButton>
+            ) : null}
+            <ListItemButton onClick={() => navigate("workshops/registered")}>
               <ListItemIcon>
-                <ScheduleOutlinedIcon />
+                <ScheduleOutlinedIcon sx={{ color: "#414141" }} />
               </ListItemIcon>
-              <ListItemText primary="Próximos Workshops" />
+              <ListItemText primary="Próximos" />
             </ListItemButton>
           </List>
         </Collapse>
@@ -177,53 +206,37 @@ const DrawerList = () => {
         <ListItem disablePadding>
           <ListItemButton onClick={handleEventsClick}>
             <ListItemIcon>
-              <EventOutlinedIcon sx={{ color: "primary.main" }} />
+              <EventOutlinedIcon sx={{ color: "#414141" }} />
             </ListItemIcon>
             <ListItemText primary="Eventos" />
             {openEvents ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
         </ListItem>
         <Collapse in={openEvents} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding sx={{ pl: 4 }}>
-            <ListItemButton
-              onClick={() => navigate("/user/user-events/fav-event")}
-            >
+          <List
+            component="div"
+            disablePadding
+            sx={{ backgroundColor: "#e3e3e3", pl: 2 }}
+          >
+            <ListItemButton onClick={() => navigate("events/favorites")}>
               <ListItemIcon>
-                <FavoriteOutlinedIcon />
+                <FavoriteOutlinedIcon sx={{ color: "#414141" }} />
               </ListItemIcon>
-              <ListItemText primary="Eventos Favoritos" />
-            </ListItemButton>
-            <ListItemButton
-              onClick={() => navigate("/user/user-events/completed-event")}
-            >
-              <ListItemIcon>
-                <CheckCircleOutlineOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText primary="Eventos Completados" />
-            </ListItemButton>
-            <ListItemButton
-              onClick={() => navigate("/user/user-events/next-event")}
-            >
-              <ListItemIcon>
-                <ScheduleOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText primary="Próximos Eventos" />
+              <ListItemText primary="Favoritos" />
             </ListItemButton>
           </List>
         </Collapse>
       </List>
       <Divider />
       <List>
-        <ListItem disablePadding onClick={handleLogoutUser}>
-          <ListItemButton>
-            <ListItemIcon>
-              <LogoutOutlinedIcon sx={{ color: "#d81d26" }} />
-            </ListItemIcon>
-            <ListItemText primary="Cerrar sesión" />
-          </ListItemButton>
-        </ListItem>
+        <DefaultButton
+          onclick={handleLogoutUser}
+          styles={{ marginLeft: "auto", marginRight: 10 }}
+          className="default-button-reverse"
+          buttonText="Cerrar Sesión"
+        />
       </List>
-    </div>
+    </Box>
   );
 };
 

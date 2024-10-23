@@ -142,7 +142,7 @@ export const Users = () => {
                           fontSize="large"
                           color="info"
                           onClick={() => {
-                            navigate(`user/${row._id}`);
+                            navigate(`/user-profile/${row._id}`);
                           }}
                           sx={{
                             cursor: "pointer",

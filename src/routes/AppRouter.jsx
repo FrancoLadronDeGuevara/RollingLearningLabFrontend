@@ -14,14 +14,19 @@ import {
   Events,
   CreateEvent,
   EditWorkshop,
-  DetailsUser,
   EditEvent,
   Requests,
   SpeakerRequestForm,
   WorkshopDetailPage,
   UserPage,
-  UserInfo,
   UserConfig,
+  UserProfilePage,
+  FavoritesWorkshops,
+  CompletedWorkshops,
+  RegisteredWorkshops,
+  FavoritesEvents,
+  CreatedWorkshops,
+  CreateWorkshopBySpeaker,
   FAQpage,
 } from "../pages/index";
 
@@ -82,9 +87,17 @@ export const AppRouter = () => {
           }
         />
 
+        <Route
+          path="/user-profile/:id"
+          element={
+            <RootLayout>
+              <UserProfilePage />
+            </RootLayout>
+          }
+        />
+
         <Route path="/admin/*" element={<AdminPage />}>
           <Route path="users" element={<Users />} />
-          <Route path="users/user/:id" element={<DetailsUser />} />
           <Route path="workshops" element={<Workshops />} />
           <Route
             path="workshops/edit-workshop/:id"
@@ -103,9 +116,17 @@ export const AppRouter = () => {
         </Route>
 
         <Route path="/user/*" element={<UserPage />}>
-          <Route path="info" element={<UserInfo />} />
           <Route path="config" element={<UserConfig />} />
+          <Route path="create-workshop" element={<CreateWorkshopBySpeaker/>} />
           <Route path="speaker-request" element={<SpeakerRequestForm />} />
+          <Route path="workshops/favorites" element={<FavoritesWorkshops />} />
+          <Route path="workshops/completed" element={<CompletedWorkshops />} />
+          <Route path="workshops/created" element={<CreatedWorkshops />} />
+          <Route
+            path="workshops/registered"
+            element={<RegisteredWorkshops />}
+          />
+          <Route path="events/favorites" element={<FavoritesEvents />} />
         </Route>
 
         <Route path="/login" element={<LoginPage />} />
