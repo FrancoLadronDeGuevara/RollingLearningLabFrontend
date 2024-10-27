@@ -24,5 +24,4 @@ export { CompletedWorkshops } from "../components/User/UserWorkshops/CompletedWo
 export { RegisteredWorkshops } from "../components/User/UserWorkshops/RegisteredWorkshops/RegisteredWorkshops";
 export { CreatedWorkshops } from "../components/User/UserWorkshops/CreatedWorkshops/CreatedWorkshops";
 export { CreateWorkshopBySpeaker } from "../components/User/CreateWorkshopBySpeaker/CreateWorkshopBySpeaker";
-export { UserInfo } from "../components/User/Info/UserInfo";
 export { FAQpage } from "../pages/FAQpage";
