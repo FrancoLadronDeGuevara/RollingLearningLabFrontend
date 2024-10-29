@@ -61,24 +61,27 @@ export const CardDetail = ({id, isWorkshop, workOrEven, loading}) => {
             <Typography variant="h6" component="h1" sx={styleTitle}>
               {workOrEven?.title}
             </Typography>
-            <Box sx={{ display: "flex", alignItems: "center", gap: ".5rem" }}>
+           {
+            isWorkshop && ( <Box sx={{ display: "flex", alignItems: "center", gap: ".5rem" }}>
               <RecordVoiceOverOutlinedIcon sx={{ color: `${textColor}` }} />
               <Typography sx={{ fontWeight: "550", color: `${textColor}` }}>
                 {workOrEven?.speakers.toString() ?? "Sin speaker"}
               </Typography>
-            </Box>
-            {workOrEven?.attendees.length > 0 && 
+            </Box>)
+           }
+            {isWorkshop && (workOrEven?.attendees.length > 0 &&
               <Box sx={{ display: "flex", alignItems: "center", gap: ".5rem" }}>
               <Groups3OutlinedIcon sx={{ color: `${textColor}` }} />
               <Typography sx={{fontSize:".9rem", fontWeight: "500", color: `${textColor}` }}>
                 {workOrEven?.attendees.toString()}
               </Typography>
-            </Box>
+            </Box>)
             }
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
+                flexWrap:"wrap",
                 gap: {xs:".5rem", sm:"1rem"},
                 color: `${textColor}`,
               }}
@@ -89,10 +92,19 @@ export const CardDetail = ({id, isWorkshop, workOrEven, loading}) => {
               <Typography title="Comienzo" sx={stylesText}>
                 {workOrEven?.startTime} Hs.
               </Typography>
-              | <GroupOutlinedIcon />
+              | {
+                isWorkshop ? (<>
+                <GroupOutlinedIcon />
               <Typography title="Usuarios registrados" sx={stylesText}>
                 {workOrEven?.registeredUsers.length ?? "0"}
               </Typography>
+                </>) : (<>
+                  <AccessTimeOutlinedIcon />
+              <Typography title="Finaliza" sx={stylesText}>
+                {workOrEven?.endTime} Hs.
+              </Typography>
+                </>)
+              }
               |<StarBorderOutlinedIcon />
               <Typography title="Likes" sx={stylesText}>{workOrEven?.likes.length ?? 0}</Typography>
             </Box>
@@ -100,7 +112,7 @@ export const CardDetail = ({id, isWorkshop, workOrEven, loading}) => {
               <Typography sx={{fontSize:"1rem", fontWeight:"600", color:"#3D3D3D"}} component="h2">Descripción</Typography>
               <Typography sx={stylesText}>{workOrEven?.description}</Typography>
             </Box>
-            <Button sx={{border:"1px solid #5D5D5D", borderRadius:"1rem", background:"#111",color:"#fefefe", "&:hover":{background:"#3D3D3D"}}}>{workOrEven?.status === "PENDIENTE" ? "registrarse" : "ver"}</Button>
+            <Button sx={{width:{sm:"10rem"}, paddingBlock:{xs:"1rem", sm:".5rem"},border:"1px solid #5D5D5D", borderRadius:"1rem", background:"#111",color:"#fefefe", "&:hover":{background:"#3D3D3D"}}}>{workOrEven?.status === "PENDIENTE" ? "registrarse" : "ver"}</Button>
           </Box>{/*!TODO: separar boton */}
         </Box>
       </Box>
