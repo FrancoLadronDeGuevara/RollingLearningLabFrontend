@@ -1,13 +1,8 @@
 import {
-  Box,
-  Button,
-  Card,
-  CardMedia,
   Container,
   Divider,
-  Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getWorkshop } from "../../redux/actions/workshop.actions";
@@ -31,7 +26,7 @@ const WorkshopDetail = () => {
     <>
       {loading && <Loader />}
       <Container maxWidth="lg" disableGutters>
-        <CardDetail id={id}/>
+        <CardDetail id={id} isWorkshop={true} loading={loading} workOrEven={workshop}/>
         <Divider />
         <CommentSection isWorkshop />
       </Container>
