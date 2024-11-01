@@ -31,6 +31,7 @@ import {
 } from "../pages/index";
 
 import RootLayout from "../components/RootLayout/RootLayout";
+import { EventDetailPage } from "../pages/EventDetailPage";
 
 export const AppRouter = () => {
   return (
@@ -88,6 +89,14 @@ export const AppRouter = () => {
         />
 
         <Route
+          path="/event/:id"
+          element={
+            <RootLayout>
+              <EventDetailPage />
+            </RootLayout>
+          }
+        />
+        <Route
           path="/user-profile/:id"
           element={
             <RootLayout>
@@ -117,7 +126,7 @@ export const AppRouter = () => {
 
         <Route path="/user/*" element={<UserPage />}>
           <Route path="config" element={<UserConfig />} />
-          <Route path="create-workshop" element={<CreateWorkshopBySpeaker/>} />
+          <Route path="create-workshop" element={<CreateWorkshopBySpeaker />} />
           <Route path="speaker-request" element={<SpeakerRequestForm />} />
           <Route path="workshops/favorites" element={<FavoritesWorkshops />} />
           <Route path="workshops/completed" element={<CompletedWorkshops />} />

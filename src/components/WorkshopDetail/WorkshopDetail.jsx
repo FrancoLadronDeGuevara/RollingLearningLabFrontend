@@ -1,18 +1,14 @@
 import {
-  Box,
-  Button,
-  Card,
-  CardMedia,
   Container,
   Divider,
-  Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getWorkshop } from "../../redux/actions/workshop.actions";
 import Loader from "../../components/Loader/Loader";
 import CommentSection from "../CommentSection/CommentSection";
+import { CardDetail } from "../CardDetail/CardDetail";
 
 const WorkshopDetail = () => {
   const { id } = useParams();
@@ -21,6 +17,7 @@ const WorkshopDetail = () => {
   const { workshop, loading } = useSelector((state) => state.workshop);
   useEffect(() => {
     dispatch(getWorkshop(id));
+    return console.log(workshop)
   }, []);
 
   
@@ -29,7 +26,17 @@ const WorkshopDetail = () => {
     <>
       {loading && <Loader />}
       <Container maxWidth="lg" disableGutters>
-        <Box
+        <CardDetail id={id} isWorkshop={true} loading={loading} workOrEven={workshop}/>
+        <Divider />
+        <CommentSection isWorkshop />
+      </Container>
+    </>
+  );
+};
+
+export default WorkshopDetail;
+
+      {/* <Box
           sx={{
             minHeight: "100vh",
             display: "grid",
@@ -101,12 +108,4 @@ const WorkshopDetail = () => {
               {workshop?.description}
             </Typography>
           </Box>
-        </Box>
-        <Divider />
-        <CommentSection isWorkshop />
-      </Container>
-    </>
-  );
-};
-
-export default WorkshopDetail;
+        </Box> */}
