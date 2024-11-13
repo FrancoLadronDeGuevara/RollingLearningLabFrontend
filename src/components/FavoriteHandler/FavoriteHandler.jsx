@@ -5,7 +5,7 @@ import useSweetAlert from '../../hooks/useAlert';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEventFavorite, addFavoriteWorkshop, removeEventFavorite, removeFavoriteWorkshop } from '../../redux/actions/favorite.actions';
 
-export const FavoriteHandler = ({id, isAuthenticated, isWorkshop}) => {
+export const FavoriteHandler = ({id, isAuthenticated, isWorkshop, title="agregar/quitar a favoritos"}) => {
   const { autoCloseAlert } = useSweetAlert();
   const dispatch = useDispatch()
   const { favoriteWorkshops, favoriteEvents} = useSelector((state) => state.favorite)
@@ -36,7 +36,7 @@ export const FavoriteHandler = ({id, isAuthenticated, isWorkshop}) => {
     }
   };
   return (
-		<IconButton onClick={handleFavorite} sx={{background:"#3D3D3D"}}>
+		<IconButton title={title} onClick={handleFavorite} sx={{background:"#3D3D3D"}}>
 		{isWorkshop ? (
 			isWorkshopFavorite ? (
 				<FavoriteOutlinedIcon sx={{ color: "red" }} />
